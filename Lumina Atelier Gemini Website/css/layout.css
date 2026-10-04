@@ -1,0 +1,140 @@
+/* Sticky Glassmorphism Header */
+.lumina-header {
+    position: fixed;
+    top: 0; width: 100%; z-index: 2000;
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border-bottom: 1px solid var(--border-color);
+    padding: 1.1rem 4%;
+    transition: var(--transition-smooth);
+}
+
+.lumina-nav-container {
+    display: grid;
+    align-items: center;
+    width: 100%;
+}
+
+/* --- LAPTOP ALIGNMENT Breakpoint: Fits inside 1.5 Rows --- */
+@media (min-width: 1150px) {
+    .lumina-nav-container {
+        grid-template-columns: auto 1fr;
+        grid-template-rows: auto;
+    }
+    .hamburger-checkbox, .hamburger-trigger, .menu-group-title { display: none; }
+    
+    .nav-menu {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 0.95rem;
+        flex-wrap: wrap;
+        max-height: 3.2rem; /* Enforces fractional layout wrapping compression boundaries */
+        overflow: hidden;
+    }
+}
+
+/* --- TABLET ALIGNMENT Breakpoint: Spans Exactly 2.5 Rows --- */
+@media (min-width: 768px) and (max-width: 1149px) {
+    .lumina-nav-container {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto auto;
+        gap: 0.6rem;
+    }
+    .hamburger-checkbox, .hamburger-trigger, .menu-group-title { display: none; }
+    
+    .nav-menu {
+        grid-row: 2 / 4; /* Spans rows explicitly to lock 2.5 proportional density */
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 0.8rem;
+    }
+}
+
+/* --- MOBILE HAMBURGER DRAWERS --- */
+@media (max-width: 767px) {
+    .lumina-nav-container {
+        grid-template-columns: 1fr auto auto;
+        gap: 1.2rem;
+    }
+    
+    .nav-menu {
+        position: fixed;
+        top: 0; right: -100%; width: 85%; height: 100vh;
+        background: var(--bg-surface);
+        display: flex; flex-direction: column;
+        justify-content: flex-start;
+        padding: 6rem 2.5rem;
+        gap: 0.8rem;
+        transition: var(--transition-smooth);
+        z-index: 1999;
+        overflow-y: auto;
+        box-shadow: -15px 0 40px rgba(0,0,0,0.4);
+    }
+    
+    .menu-group-title {
+        font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.25em;
+        color: var(--accent); margin: 1.2rem 0 0.4rem 0;
+        border-bottom: 1px solid var(--border-color); padding-bottom: 0.2rem;
+    }
+    
+    .hamburger-trigger {
+        display: block; width: 26px; height: 16px;
+        position: relative; cursor: pointer; z-index: 2001;
+    }
+    .hamburger-trigger span, .hamburger-trigger::before, .hamburger-trigger::after {
+        content: ""; position: absolute; width: 100%; height: 2px;
+        background: var(--text-light); transition: var(--transition-snappy);
+    }
+    .hamburger-trigger span { top: 7px; }
+    .hamburger-trigger::before { top: 0; }
+    .hamburger-trigger::after { bottom: 0; }
+    
+    .hamburger-checkbox { display: none; }
+    .hamburger-checkbox:checked ~ .nav-menu { right: 0; }
+    
+    .hamburger-checkbox:checked ~ .hamburger-trigger span { opacity: 0; }
+    .hamburger-checkbox:checked ~ .hamburger-trigger::before { transform: translateY(7px) rotate(45deg); background: var(--primary); }
+    .hamburger-checkbox:checked ~ .hamburger-trigger::after { transform: translateY(-7px) rotate(-45deg); background: var(--primary); }
+}
+
+.nav-link {
+    font-family: var(--font-sans);
+    font-size: var(--fs-nav);
+    color: var(--text-light);
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-weight: 500;
+    white-space: nowrap;
+    padding: 0.3rem 0.6rem;
+    position: relative;
+    transition: var(--transition-snappy);
+}
+.nav-link:hover { color: var(--primary); }
+
+.nav-link::after {
+    content: ''; position: absolute; bottom: -2px; left: 0;
+    width: 100%; height: 1px; background: var(--primary);
+    transform: scaleX(0);
+    transform-origin: right; transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.nav-link:hover::after { transform: scaleX(1); transform-origin: left; }
+
+.theme-switch-label {
+    cursor: pointer; padding: 0.45rem; border: 1px solid var(--border-color);
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    width: 34px; height: 34px; transition: var(--transition-snappy); color: var(--text-light);
+}
+.theme-switch-label:hover { border-color: var(--primary); box-shadow: var(--border-glow); color: var(--primary); }
+
+.lumina-footer {
+    background: #050912; padding: 6rem 4% 3rem;
+    border-top: 1px solid var(--border-color);
+}
+.footer-grid-wrapper {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 4rem; margin-bottom: 5rem;
+}

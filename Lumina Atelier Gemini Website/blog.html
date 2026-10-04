@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Atelier Journal | Layout Systems Log</title>
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/components.css">
+    <style>
+        .blog-split-layout {
+            display: grid; grid-template-columns: 2.2fr 1fr; gap: 5rem;
+            padding: 13rem 4% 8rem; max-width: 1500px; margin: 0 auto;
+        }
+        @media (max-width: 991px) { .blog-split-layout { grid-template-columns: 1fr; gap: 4rem; } }
+    </style>
+</head>
+<body>
+    <input type="checkbox" id="theme-switch-checkbox" style="display: none;">
+    <header class="lumina-header">
+        <div class="lumina-nav-container">
+            <a href="index.html" class="nav-link" style="font-family:var(--font-display); font-size: 1.4rem; text-transform: none; color:var(--accent); padding:0; font-weight:700;">Lumina Atelier</a>
+            <input type="checkbox" id="nav-toggle-state" class="hamburger-checkbox">
+            <div style="grid-column:3; display:flex; align-items:center; gap:0.8rem;">
+                <label for="theme-switch-checkbox" class="theme-switch-label" title="Switch Theme Matrix">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 18.36l1.42-1.42M18.36 4.22l1.42-1.42"/></svg>
+                </label>
+                <label for="nav-toggle-state" class="hamburger-trigger"><span></span></label>
+            </div>
+            <nav class="nav-menu">
+                <div class="menu-group-title">Core Spaces</div>
+                <a href="index.html" class="nav-link">Home Space</a>
+                <a href="about.html" class="nav-link">About Studio</a>
+                <a href="portfolio.html" class="nav-link">Portfolio Matrix</a>
+                <a href="services.html" class="nav-link">Services &amp; Pricing</a>
+                <a href="blog.html" class="nav-link">Journal Log</a>
+                <a href="contact.html" class="nav-link">Contact Vault</a>
+                <div class="menu-group-title">Portfolio Layers</div>
+                <a href="portfolio.html#branding" class="nav-link" style="font-size:0.78rem; color:var(--text-muted);">Web Design</a>
+                <a href="portfolio.html#branding" class="nav-link" style="font-size:0.78rem; color:var(--text-muted);">Branding</a>
+                <a href="portfolio.html#photography" class="nav-link" style="font-size:0.78rem; color:var(--text-muted);">Photography</a>
+                <a href="portfolio.html#illustration" class="nav-link" style="font-size:0.78rem; color:var(--text-muted);">Illustration</a>
+                <div class="menu-group-title">Procurement</div>
+                <a href="services.html#tier-matrix" class="nav-link" style="color:var(--accent);">Package Matrix</a>
+                <a href="contact.html#bookings" class="nav-link" style="color:var(--primary);">Secure Booking</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="blog-split-layout">
+        <section>
+            <div class="premium-card" style="padding: 4.5rem; margin-bottom: 3.5rem;">
+                <span style="color:var(--primary); font-size:0.8rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase;">FRONTEND ENGINE THEORY</span>
+                <h2 style="font-family:var(--font-display); font-size:var(--fs-h3); margin: 1.2rem 0 2rem;">The Elimination of Heavy JS Scripting Blocks</h2>
+                <p style="color:var(--text-muted); line-height:1.9; font-size:1.05rem;">
+                    Natively evaluating structural element interactions using modern CSS architecture logic keeps processing pipelines clean. By leaving layout responsibilities strictly to CSS layout passes, standard browser rendering speeds skyrocket while preserving pristine responsive animations.
+                </p>
+            </div>
+        </section>
+        <aside>
+            <div class="premium-card" style="padding: 3rem;">
+                <h4 style="font-family:var(--font-display); font-size:1.3rem; color:var(--accent); margin-bottom:1.2rem;">Atelier Bulletins</h4>
+                <p style="color:var(--text-muted); font-size:0.95rem; line-height:1.7;">Regular research documentation charting layout optimizations and declarative structural web paradigms.</p>
+            </div>
+        </aside>
+    </main>
+</body>
+</html>

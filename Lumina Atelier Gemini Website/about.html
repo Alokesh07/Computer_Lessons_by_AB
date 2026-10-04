@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Our Artisans | Lumina Atelier Narrative</title>
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/components.css">
+    <style>
+        .about-layout-grid {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 6rem;
+            padding: 13rem 4% 8rem; max-width: 1400px; margin: 0 auto;
+        }
+        @media (max-width: 991px) { .about-layout-grid { grid-template-columns: 1fr; gap: 4rem; padding-top: 10rem; } }
+        .avatar-clip-mask {
+            width: 100%; id: avatar; aspect-ratio: 1; background: var(--bg-surface-elevated);
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+            transition: var(--transition-smooth); border: 1px solid var(--border-color);
+        }
+        .avatar-clip-mask:hover { transform: scale(1.04); filter: drop-shadow(var(--border-glow)); }
+    </style>
+</head>
+<body>
+    <input type="checkbox" id="theme-switch-checkbox" style="display: none;">
+    <header class="lumina-header">
+        <div class="lumina-nav-container">
+            <a href="index.html" class="nav-link" style="font-family:var(--font-display); font-size: 1.4rem; text-transform: none; color:var(--accent); padding:0; font-weight:700;">Lumina Atelier</a>
+            <input type="checkbox" id="nav-toggle-state" class="hamburger-checkbox">
+            <div style="grid-column:3; display:flex; align-items:center; gap:0.8rem;">
+                <label for="theme-switch-checkbox" class="theme-switch-label" title="Switch Theme Matrix">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 18.36l1.42-1.42M18.36 4.22l1.42-1.42"/></svg>
+                </label>
+                <label for="nav-toggle-state" class="hamburger-trigger"><span></span></label>
+            </div>
+            <nav class="nav-menu">
+                <div class="menu-group-title">Core Spaces</div>
+                <a href="index.html" class="nav-link">Home Space</a>
+                <a href="about.html" class="nav-link">About Studio</a>
+                <a href="portfolio.html" class="nav-link">Portfolio Matrix</a>
+                <a href="services.html" class="nav-link">Services &amp; Pricing</a>
+                <a href="blog.html" class="nav-link">Journal Log</a>
+                <a href="contact.html" class="nav-link">Contact Vault</a>
+                <div class="menu-group-title">Portfolio Layers</div>
+                <a href="portfolio.html#branding" class="nav-link" style="font-size:0.78rem; color:var(--text-muted);">Web Design</a>
+                <a href="portfolio.html#branding" class="nav-link" style="font-size:0.78rem; color:var(--text-muted);">Branding</a>
+                <a href="portfolio.html#photography" class="nav-link" style="font-size:0.78rem; color:var(--text-muted);">Photography</a>
+                <a href="portfolio.html#illustration" class="nav-link" style="font-size:0.78rem; color:var(--text-muted);">Illustration</a>
+                <div class="menu-group-title">Procurement</div>
+                <a href="services.html#tier-matrix" class="nav-link" style="color:var(--accent);">Package Matrix</a>
+                <a href="contact.html#bookings" class="nav-link" style="color:var(--primary);">Secure Booking</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="about-layout-grid">
+        <div>
+            <span style="color: var(--primary); text-transform: uppercase; letter-spacing: 0.25em; font-size: 0.8rem; font-weight: 700;">THE STUDIO STORY</span>
+            <h2 style="font-family: var(--font-display); font-size: var(--fs-h2); color: var(--accent); margin: 1rem 0 2.5rem;">Uncompromising Layout Sincerity</h2>
+            <p style="color: var(--text-muted); font-size: var(--fs-body); line-height: 1.9; margin-bottom: 2rem;">
+                Lumina Atelier was built to challenge generic templates. We build complex user experiences with zero operational overhead, maximizing layout speeds and fluid structural integrity across every active viewport class.
+            </p>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 2.5rem;">
+            <div style="text-align: center;">
+                <div class="avatar-clip-mask"></div>
+                <h4 style="margin-top: 1.5rem; font-family: var(--font-display); font-size: 1.2rem;">Alokesh Bhattacharya</h4>
+                <p style="color: var(--primary); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em; margin-top: 0.2rem;">Lead Systems Architect</p>
+            </div>
+            <div style="text-align: center;">
+                <div class="avatar-clip-mask"></div>
+                <h4 style="margin-top: 1.5rem; font-family: var(--font-display); font-size: 1.2rem;">Ruchet Rakshit</h4>
+                <p style="color: var(--accent); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em; margin-top: 0.2rem;">Principal UI Engineer</p>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

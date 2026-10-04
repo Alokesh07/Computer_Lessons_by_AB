@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enterprise Procurement Levels | Lumina Pricing</title>
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/components.css">
+    <style>
+        .pricing-dashboard-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem; padding: 4rem 4% 12rem; max-width: 1500px; margin: 0 auto;
+        }
+        .benefit-summary-list { list-style: none; text-align: left; margin: 2.5rem 0; font-size: 0.88rem; line-height: 2.4; }
+        .benefit-summary-list li { border-bottom: 1px solid var(--border-color); color: var(--text-muted); }
+        .benefit-summary-list li strong { color: var(--primary); font-weight: 600; }
+    </style>
+</head>
+<body>
+    <input type="checkbox" id="theme-switch-checkbox" style="display: none;">
+    <header class="lumina-header">
+        <div class="lumina-nav-container">
+            <a href="index.html" class="nav-link" style="font-family:var(--font-display); font-size: 1.4rem; text-transform: none; color:var(--accent); padding:0; font-weight:700;">Lumina Atelier</a>
+            <input type="checkbox" id="nav-toggle-state" class="hamburger-checkbox">
+            <div style="grid-column:3; display:flex; align-items:center; gap:0.8rem;">
+                <label for="theme-switch-checkbox" class="theme-switch-label" title="Switch Theme Matrix">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 18.36l1.42-1.42M18.36 4.22l1.42-1.42"/></svg>
+                </label>
+                <label for="nav-toggle-state" class="hamburger-trigger"><span></span></label>
+            </div>
+            <nav class="nav-menu">
+                <div class="menu-group-title">Core Spaces</div>
+                <a href="index.html" class="nav-link">Home Space</a>
+                <a href="about.html" class="nav-link">About Studio</a>
+                <a href="portfolio.html" class="nav-link">Portfolio Matrix</a>
+                <a href="services.html" class="nav-link">Services &amp; Pricing</a>
+                <a href="blog.html" class="nav-link">Journal Log</a>
+                <a href="contact.html" class="nav-link">Contact Vault</a>
+                <div class="menu-group-title">Portfolio Layers</div>
+                <a href="portfolio.html#branding" class="nav-link" style="font-size:0.78rem; color:var(--text-muted);">Web Design</a>
+                <a href="portfolio.html#branding" class="nav-link" style="font-size:0.78rem; color:var(--text-muted);">Branding</a>
+                <a href="portfolio.html#photography" class="nav-link" style="font-size:0.78rem; color:var(--text-muted);">Photography</a>
+                <a href="portfolio.html#illustration" class="nav-link" style="font-size:0.78rem; color:var(--text-muted);">Illustration</a>
+                <div class="menu-group-title">Procurement</div>
+                <a href="services.html#tier-matrix" class="nav-link" style="color:var(--accent);">Package Matrix</a>
+                <a href="contact.html#bookings" class="nav-link" style="color:var(--primary);">Secure Booking</a>
+            </nav>
+        </div>
+    </header>
+
+    <h2 id="tier-matrix" style="text-align: center; font-family: var(--font-display); font-size: var(--fs-h2); padding-top: 14rem;">Procurement System Matrix</h2>
+
+    <main class="pricing-dashboard-grid">
+        <!-- Card 1 -->
+        <div class="premium-card" style="padding: 3.5rem 2rem; text-align: center;">
+            <h3 style="font-family: var(--font-display); font-size:1.6rem;">Basic Plan</h3>
+            <div style="font-size: 2.6rem; color: var(--accent); margin: 1.5rem 0; font-weight:700;">$4,990<span style="font-size:0.9rem; color:var(--text-muted); font-weight:300;">/proj</span></div>
+            <a href="#popup-basic" class="btn-lux" style="display: block;">Examine 10 Benefits</a>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="premium-card" style="padding: 3.5rem 2rem; text-align: center;">
+            <h3 style="font-family: var(--font-display); font-size:1.6rem;">Economy Plan</h3>
+            <div style="font-size: 2.6rem; color: var(--accent); margin: 1.5rem 0; font-weight:700;">$8,990<span style="font-size:0.9rem; color:var(--text-muted); font-weight:300;">/proj</span></div>
+            <a href="#popup-economy" class="btn-lux" style="display: block;">Examine 12 Benefits</a>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="premium-card" style="padding: 3.5rem 2rem; text-align: center;">
+            <h3 style="font-family: var(--font-display); font-size:1.6rem;">Premium Economy</h3>
+            <div style="font-size: 2.6rem; color: var(--accent); margin: 1.5rem 0; font-weight:700;">$14,990<span style="font-size:0.9rem; color:var(--text-muted); font-weight:300;">/proj</span></div>
+            <a href="#popup-premium-economy" class="btn-lux" style="display: block;">Examine 15 Benefits</a>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="premium-card" style="padding: 3.5rem 2rem; text-align: center; border-color: var(--primary);">
+            <h3 style="font-family: var(--font-display); font-size:1.6rem;">Business Tier</h3>
+            <div style="font-size: 2.6rem; color: var(--primary); margin: 1.5rem 0; font-weight:700;">$24,990<span style="font-size:0.9rem; color:var(--text-muted); font-weight:300;">/proj</span></div>
+            <a href="#popup-business" class="btn-lux" style="display: block; background: var(--primary); color:#0A0F1C;">Examine 18 Benefits</a>
+        </div>
+
+        <!-- Card 5 -->
+        <div class="premium-card" style="padding: 3.5rem 2rem; text-align: center; border-color: var(--accent);">
+            <h3 style="font-family: var(--font-display); font-size:1.6rem;">Premium Business</h3>
+            <div style="font-size: 2.6rem; color: var(--accent); margin: 1.5rem 0; font-weight:700;">$49,990<span style="font-size:0.9rem; color:var(--text-muted); font-weight:300;">/proj</span></div>
+            <a href="#popup-premium-business" class="btn-lux" style="display: block; border-color: var(--accent); color: var(--accent);">Examine 25 Benefits</a>
+        </div>
+    </main>
+
+    <!-- TARGET WINDOW OVERLAYS -->
+
+    <div id="popup-basic" class="css-modal-overlay">
+        <div class="modal-wrapper">
+            <a href="#tier-matrix" class="modal-close-btn">&times;</a>
+            <h3 style="font-family: var(--font-display); font-size: 1.9rem; color: var(--accent); margin-bottom: 1.5rem;">Basic Package Manifest</h3>
+            <ul class="benefit-summary-list">
+                <li><strong>01.</strong> 100% Ad-Free UI Production Shell Deployment Infrastructure</li>
+                <li><strong>02.</strong> Access to Premium Layout System Asset Integration Templates</li>
+                <li><strong>03.</strong> Fluid Typography Structural Baseline Styling Configuration Node</li>
+                <li><strong>04.</strong> High-Contrast UI Accessibility Standard Core Implementation Verification</li>
+                <li><strong>05.</strong> Basic Styling Variable Parameter Custom Token Overrides</li>
+                <li><strong>06.</strong> Fixed Viewport Layout Grid Positioning Array Parameters</li>
+                <li><strong>07.</strong> Direct Email Interface Solution Communication Track Delivery Channel</li>
+                <li><strong>08.</strong> Structural Element Padding Layout Proportional Value Controls</li>
+                <li><strong>09.</strong> Standard Static SVG Icon Graphic Component Access</li>
+                <li><strong>10.</strong> Dedicated Project Root File Assembly Mapping Diagnostics</li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="popup-economy" class="css-modal-overlay">
+        <div class="modal-wrapper">
+            <a href="#tier-matrix" class="modal-close-btn">&times;</a>
+            <h3 style="font-family: var(--font-display); font-size: 1.9rem; color: var(--accent); margin-bottom: 1.5rem;">Economy Package Manifest</h3>
+            <ul class="benefit-summary-list">
+                <li><strong>01-10.</strong> All Standard Base Level Functional Configurations Fully Included</li>
+                <li><strong>11.</strong> Advanced CSS Grid Container Queries Adaptivity Matrix Modules</li>
+                <li><strong>12.</strong> Custom Visual UI Button Interactive Fluid Transformation Shells</li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="popup-premium-economy" class="css-modal-overlay">
+        <div class="modal-wrapper">
+            <a href="#tier-matrix" class="modal-close-btn">&times;</a>
+            <h3 style="font-family: var(--font-display); font-size: 1.9rem; color: var(--accent); margin-bottom: 1.5rem;">Premium Economy Manifest</h3>
+            <ul class="benefit-summary-list">
+                <li><strong>01-12.</strong> All Prior Economy Structural Feature Classes Included</li>
+                <li><strong>13.</strong> Intricate Pseudo-Elements Design Accent Underline Systems Layout</li>
+                <li><strong>14.</strong> Custom Google Variable Font Weight Pairing Configurator Engine</li>
+                <li><strong>15.</strong> High-Performance Client Cache Asset Optimization Profiles</li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="popup-business" class="css-modal-overlay">
+        <div class="modal-wrapper">
+            <a href="#tier-matrix" class="modal-close-btn">&times;</a>
+            <h3 style="font-family: var(--font-display); font-size: 1.9rem; color: var(--primary); margin-bottom: 1.5rem;">Business Package Manifest</h3>
+            <ul class="benefit-summary-list">
+                <li><strong>01-15.</strong> All Prior Premium Economy Core Assets Included</li>
+                <li><strong>16.</strong> Unrestricted Access to High-End Production Layout Grid Suites</li>
+                <li><strong>17.</strong> Advanced Visual Form Element Input Glow Keyframe Infrastructure</li>
+                <li><strong>18.</strong> Dedicated Studio Account Engineering Communications Route Node</li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="popup-premium-business" class="css-modal-overlay">
+        <div class="modal-wrapper">
+            <a href="#tier-matrix" class="modal-close-btn">&times;</a>
+            <h3 style="font-family: var(--font-display); font-size: 1.9rem; color: var(--accent); margin-bottom: 1.5rem;">Premium Business Ultimate Allocation</h3>
+            <ul class="benefit-summary-list">
+                <li><strong>01.</strong> 100% Fully Ad-Free Digital Production Application Infrastructure</li>
+                <li><strong>02.</strong> Complete Access to Premium Production System Layout Templates</li>
+                <li><strong>03.</strong> Complete Access to Premium Automated Styling Diagnostics Design Tools</li>
+                <li><strong>04.</strong> High-Performance Custom Domain Destination Route Namespace System</li>
+                <li><strong>05.</strong> Real-time Data Attribute Layout Alignment Render Testing Environments</li>
+                <li><strong>06.</strong> Multi-Layered Custom SVG Film Grain Filter Synthesis Nodes</li>
+                <li><strong>07.</strong> Ultimate Fluid Typography Scale Configurator Math Systems</li>
+                <li><strong>08.</strong> Bespoke Grid Structuring Framework Parameter Custom Generation Kits</li>
+                <li><strong>09.</strong> Advanced Pure CSS Stateful Relational Interactive Toggle Engines</li>
+                <li><strong>10.</strong> Dedicated Cloud Asset Media Hosting Allocation Subsystem</li>
+                <li><strong>11.</strong> Custom Structural Component Wireframe Sandboxing Environment Shells</li>
+                <li><strong>12.</strong> Ultra-High Bandwidth Global Delivery Network Track Route Nodes</li>
+                <li><strong>13.</strong> Complete Unprocessed Clean Source Compilation Manifest Extraction Passes</li>
+                <li><strong>14.</strong> 24/7/365 Direct Tier Architecture Advisory Support Systems Lines</li>
+                <li><strong>15.</strong> VIP Immediate Ticket Processing Allocation Pipeline Routing Passes</li>
+                <li><strong>16.</strong> On-Demand Production Layout Assembly Optimization Workshops Courses</li>
+                <li><strong>17.</strong> Full Multi-Page Structural Layout Scalability Performance Verification Overlays</li>
+                <li><strong>18.</strong> Next-Generation Structural Relational Pseudo-Class Logic Integration Vectors</li>
+                <li><strong>19.</strong> Complete High-Contrast Accessibility Standard Visual Layer Controls</li>
+                <li><strong>20.</strong> Immersive Micro-Interaction Transform Scale Vector Modification Toolsets</li>
+                <li><strong>21.</strong> Bespoke Root Level Theme Variable Mapping Color Arrays</li>
+                <li><strong>22.</strong> Secure Serverless Form Data Forwarding Pipeline Submission Channels</li>
+                <li><strong>23.</strong> High-Priority Node Network Content Delivery Sync Arrays</li>
+                <li><strong>24.</strong> Deep Analytics Data-Attribute Tag Generation Configuration Inventories</li>
+                <li><strong>25.</strong> Full Master Exploitation Rights Production Licensing Handshake Documentation</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

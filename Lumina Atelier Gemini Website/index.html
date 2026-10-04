@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lumina Atelier | Immersive Digital Architecture Portfolio</title>
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/components.css">
+    <style>
+        .hero-viewport {
+            height: 100vh; display: flex; align-items: center; justify-content: center;
+            background: radial-gradient(circle at 50% 30%, var(--bg-surface) 0%, var(--bg-dark) 100%); padding: 0 4%;
+        }
+        .btn-lux {
+            padding: 1.3rem 2.8rem; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.25em;
+            text-decoration: none; display: inline-block; border: 1px solid var(--primary); color: var(--primary);
+            background: none; transition: var(--transition-smooth); font-weight: 600;
+        }
+        .btn-lux:hover { background: var(--primary); color: #0A0F1C; box-shadow: var(--border-glow); }
+    </style>
+</head>
+<body>
+    <input type="checkbox" id="theme-switch-checkbox" style="display: none;">
+    <header class="lumina-header">
+        <div class="lumina-nav-container">
+            <a href="index.html" class="nav-link" style="font-family:var(--font-display); font-size: 1.4rem; text-transform: none; color:var(--accent); padding:0; font-weight:700;">Lumina Atelier</a>
+            <input type="checkbox" id="nav-toggle-state" class="hamburger-checkbox">
+            <div style="grid-column:3; display:flex; align-items:center; gap:0.8rem;">
+                <label for="theme-switch-checkbox" class="theme-switch-label" title="Switch Theme Matrix">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 18.36l1.42-1.42M18.36 4.22l1.42-1.42"/></svg>
+                </label>
+                <label for="nav-toggle-state" class="hamburger-trigger"><span></span></label>
+            </div>
+            <nav class="nav-menu">
+                <div class="menu-group-title">Core Spaces</div>
+                <a href="index.html" class="nav-link">Home Space</a>
+                <a href="about.html" class="nav-link">About Studio</a>
+                <a href="portfolio.html" class="nav-link">Portfolio Matrix</a>
+                <a href="services.html" class="nav-link">Services &amp; Pricing</a>
+                <a href="blog.html" class="nav-link">Journal Log</a>
+                <a href="contact.html" class="nav-link">Contact Vault</a>
+                <div class="menu-group-title">Portfolio Layers</div>
+                <a href="portfolio.html#branding" class="nav-link" style="font-size:0.78rem; color:var(--text-muted);">Web Design</a>
+                <a href="portfolio.html#branding" class="nav-link" style="font-size:0.78rem; color:var(--text-muted);">Branding</a>
+                <a href="portfolio.html#photography" class="nav-link" style="font-size:0.78rem; color:var(--text-muted);">Photography</a>
+                <a href="portfolio.html#illustration" class="nav-link" style="font-size:0.78rem; color:var(--text-muted);">Illustration</a>
+                <div class="menu-group-title">Procurement</div>
+                <a href="services.html#tier-matrix" class="nav-link" style="color:var(--accent);">Package Matrix</a>
+                <a href="contact.html#bookings" class="nav-link" style="color:var(--primary);">Secure Booking</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero-viewport">
+            <div style="text-align: center; max-width: 1100px;">
+                <h1 style="font-family: var(--font-display); font-size: var(--fs-h1); line-height: 0.95; font-weight: 400; letter-spacing: -0.03em; margin-bottom: 2.5rem;">Bespoke Digital <span style="color: var(--primary); display: block;">Masterpieces</span></h1>
+                <p style="color: var(--text-muted); margin-bottom: 3.5rem; font-size: var(--fs-h3); font-family: var(--font-display); font-style: italic;">Where premium visual execution meets raw frontend craftsmanship.</p>
+                <div style="display: flex; gap: 2rem; justify-content: center; flex-wrap: wrap;">
+                    <a href="portfolio.html" class="btn-lux">Explore Showroom Matrix</a>
+                    <a href="services.html#tier-matrix" class="btn-lux" style="border-color: var(--accent); color: var(--accent);">Procurement Pricing</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="lumina-footer">
+        <div class="footer-grid-wrapper">
+            <div>
+                <h4 style="font-family: var(--font-display); color: var(--accent); margin-bottom: 1.5rem; font-size: 1.4rem;">Lumina Atelier</h4>
+                <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.7;">Avant-garde technical design architectures built natively without runtime framework overhead.</p>
+            </div>
+        </div>
+        <div style="text-align: center; padding-top: 3rem; border-top: 1px solid var(--border-color); color: var(--text-muted); font-size: 0.85rem;">
+            &copy; 2026 Lumina Atelier. Uncompromising Pure CSS Execution.
+        </div>
+    </footer>
+</body>
+</html>
