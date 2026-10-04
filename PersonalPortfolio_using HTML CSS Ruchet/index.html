@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="NeoTech Interactive Developer Dashboard - Pure HTML &amp; CSS">
+    <title>NeoTech Interactive Developer Dashboard</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <!-- NAVIGATION BAR -->
+    <header>
+        <nav class="navbar">
+            <div class="nav-container">
+                <!-- Logo -->
+                <div class="logo">
+                    <h1>Neo<span>Tech</span></h1>
+                </div>
+
+                <!-- Pure CSS Hamburger Toggle -->
+                <input type="checkbox" id="nav-toggle" class="nav-toggle-input">
+                <label for="nav-toggle" class="nav-toggle-label" aria-label="Toggle navigation menu">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </label>
+
+                <!-- Navigation Links -->
+                <ul class="nav-links">
+                    <li><a href="#hero" aria-label="Go to Profile section">Profile</a></li>
+                    <li><a href="#skills" aria-label="Go to Skills section">Skills</a></li>
+                    <li><a href="#projects" aria-label="Go to Projects section">Projects</a></li>
+                    <li><a href="#analytics" aria-label="Go to Analytics section">Analytics</a></li>
+                    <li><a href="#media" aria-label="Go to Media section">Media</a></li>
+                    <li><a href="#faq" aria-label="Go to FAQ section">FAQ</a></li>
+                    <li><a href="#contact" aria-label="Go to Contact section">Contact</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <!-- HERO SECTION -->
+        <section id="hero" class="hero">
+            <div class="hero-grid">
+                <!-- Profile Introduction -->
+                <div class="hero-content">
+                    <div class="profile-image-wrapper">
+                        <img src="https://picsum.photos/id/1015/420/420" 
+                             alt="NeoTech Developer Portrait - Jordan Hale, Senior Interactive Developer"
+                             class="profile-image">
+                        <div class="profile-glow"></div>
+                    </div>
+                    
+                    <div class="hero-text">
+                        <h1 class="hero-title">Jordan Hale</h1>
+                        <h2 class="hero-subtitle">Senior Interactive Developer <em>@ NeoTech</em></h2>
+                        <p class="hero-description">
+                            Building the future with <strong>pure HTML &amp; CSS</strong>. 
+                            Glassmorphism • Responsive • Zero-JS interactivity. 
+                            Currently pushing the limits of semantic web design.
+                        </p>
+                        
+                        <div class="hero-actions">
+                            <a href="#projects" class="btn-primary" aria-label="Explore my projects">Explore Portfolio</a>
+                            <a href="#contact" class="btn-secondary" aria-label="Get in touch">Start Collaboration</a>
+                        </div>
+                        
+                        <cite class="hero-quote">"Code should be beautiful. Interfaces should feel alive."</cite>
+                        
+                        <div class="hero-badges">
+                            <span class="badge">2026 Developer of the Year</span>
+                            <span class="badge">Pure CSS Master</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ASIDE: Quick Profile Stats (satisfies &lt;aside&gt; requirement) -->
+                <aside class="hero-aside" aria-labelledby="quick-stats-heading">
+                    <h3 id="quick-stats-heading">Live Stats</h3>
+                    <dl class="quick-stats">
+                        <dt>Current Streak</dt>
+                        <dd><strong>23</strong> days of active development</dd>
+                        
+                        <dt>Projects Shipped</dt>
+                        <dd><strong>14</strong> this quarter</dd>
+                        
+                        <dt>Lines of Pure CSS</dt>
+                        <dd><mark>47,892</mark> and counting</dd>
+                        
+                        <dt>Accessibility Score</dt>
+                        <dd><strong aria-label="100 out of 100">100/100</strong> WCAG 2.2 AA</dd>
+                        
+                        <dt>Specialty</dt>
+                        <dd><abbr title="Cascading Style Sheets">CSS</abbr> + Glassmorphism Architect</dd>
+                    </dl>
+                </aside>
+            </div>
+            
+            <!-- Animated scroll indicator -->
+            <div class="scroll-indicator">
+                <span>Scroll for more</span>
+                <div class="chevron"></div>
+            </div>
+        </section>
+
+        <!-- SKILLS SECTION -->
+        <section id="skills" class="section">
+            <div class="section-header">
+                <h2>Skills Visualization</h2>
+                <p>Mastery level demonstrated with pure CSS progress bars</p>
+            </div>
+            
+            <div class="skills-container">
+                <!-- Skill 1 -->
+                <div class="skill-item">
+                    <div class="skill-header">
+                        <strong>HTML5 + Semantic Markup</strong>
+                        <span class="percent">98%</span>
+                    </div>
+                    <div class="progress-container">
+                        <input type="range" min="0" max="100" value="98" class="skill-range html-range" aria-label="HTML5 skill level">
+                    </div>
+                </div>
+                
+                <!-- Skill 2 -->
+                <div class="skill-item">
+                    <div class="skill-header">
+                        <strong>CSS3 + Modern Layouts</strong>
+                        <span class="percent">96%</span>
+                    </div>
+                    <div class="progress-container">
+                        <input type="range" min="0" max="100" value="96" class="skill-range css-range" aria-label="CSS3 skill level">
+                    </div>
+                </div>
+                
+                <!-- Skill 3 -->
+                <div class="skill-item">
+                    <div class="skill-header">
+                        <strong>Flexbox &amp; Grid Mastery</strong>
+                        <span class="percent">95%</span>
+                    </div>
+                    <div class="progress-container">
+                        <input type="range" min="0" max="100" value="95" class="skill-range grid-range" aria-label="Grid skill level">
+                    </div>
+                </div>
+                
+                <!-- Skill 4 -->
+                <div class="skill-item">
+                    <div class="skill-header">
+                        <strong>Glassmorphism &amp; Animations</strong>
+                        <span class="percent">92%</span>
+                    </div>
+                    <div class="progress-container">
+                        <input type="range" min="0" max="100" value="92" class="skill-range glass-range" aria-label="Glassmorphism skill level">
+                    </div>
+                </div>
+                
+                <!-- Skill 5 -->
+                <div class="skill-item">
+                    <div class="skill-header">
+                        <strong>Responsive + Accessibility</strong>
+                        <span class="percent">90%</span>
+                    </div>
+                    <div class="progress-container">
+                        <input type="range" min="0" max="100" value="90" class="skill-range resp-range" aria-label="Responsive skill level">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PROJECTS SECTION -->
+        <section id="projects" class="section">
+            <div class="section-header">
+                <h2>Project Portfolio</h2>
+                <p>Hover cards showcase real-world implementations built with HTML &amp; CSS only</p>
+            </div>
+            
+            <div class="projects-grid">
+                <!-- Project Card 1 -->
+                <article class="project-card">
+                    <img src="https://picsum.photos/id/201/600/340" 
+                         alt="NeoDash - Real-time analytics dashboard preview">
+                    <div class="card-content">
+                        <h3>NeoDash Analytics</h3>
+                        <p>Fully responsive dashboard with glassmorphic UI and animated charts. Zero JavaScript.</p>
+                        <ul class="project-tags">
+                            <li>HTML</li>
+                            <li>CSS Grid</li>
+                            <li>Glassmorphism</li>
+                        </ul>
+                        <a href="#" class="card-link" aria-label="View NeoDash demo">Live Demo →</a>
+                    </div>
+                </article>
+                
+                <!-- Project Card 2 -->
+                <article class="project-card">
+                    <img src="https://picsum.photos/id/251/600/340" 
+                         alt="OrbitUI - Futuristic component library preview">
+                    <div class="card-content">
+                        <h3>OrbitUI Component Library</h3>
+                        <p>Collection of 40+ reusable elements with smooth hover animations and transitions.</p>
+                        <ul class="project-tags">
+                            <li>Flexbox</li>
+                            <li>Keyframes</li>
+                            <li>Responsive</li>
+                        </ul>
+                        <a href="#" class="card-link" aria-label="View OrbitUI demo">Live Demo →</a>
+                    </div>
+                </article>
+                
+                <!-- Project Card 3 -->
+                <article class="project-card">
+                    <img src="https://picsum.photos/id/1005/600/340" 
+                         alt="EchoForm - Advanced contact interface preview">
+                    <div class="card-content">
+                        <h3>EchoForm System</h3>
+                        <p>Beautiful multi-step contact form with validation styling and success states.</p>
+                        <ul class="project-tags">
+                            <li>Form Design</li>
+                            <li>Pseudo-elements</li>
+                            <li>Accessibility</li>
+                        </ul>
+                        <a href="#" class="card-link" aria-label="View EchoForm demo">Live Demo →</a>
+                    </div>
+                </article>
+                
+                <!-- Project Card 4 -->
+                <article class="project-card">
+                    <img src="https://picsum.photos/id/870/600/340" 
+                         alt="Pulse Portfolio - Developer showcase preview">
+                    <div class="card-content">
+                        <h3>Pulse Portfolio</h3>
+                        <p>Personal portfolio with embedded media, tables, and interactive FAQ accordion.</p>
+                        <ul class="project-tags">
+                            <li>Semantic HTML</li>
+                            <li>Details/Summary</li>
+                            <li>Tables</li>
+                        </ul>
+                        <a href="#" class="card-link" aria-label="View Pulse Portfolio demo">Live Demo →</a>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- ANALYTICS TABLE SECTION -->
+        <section id="analytics" class="section">
+            <div class="section-header">
+                <h2>Activity Analytics</h2>
+                <p>Last 30 days of development activity</p>
+            </div>
+            
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th scope="col">Date</th>
+                            <th scope="col">Activity</th>
+                            <th scope="col">Metric</th>
+                            <th scope="col">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2026-04-18</td>
+                            <td>Progress bars implemented</td>
+                            <td><strong>5 skills</strong></td>
+                            <td><mark class="status-complete">Completed</mark></td>
+                        </tr>
+                        <tr>
+                            <td>2026-04-17</td>
+                            <td>Glassmorphism cards added</td>
+                            <td><strong>4 projects</strong></td>
+                            <td><mark class="status-complete">Completed</mark></td>
+                        </tr>
+                        <tr>
+                            <td>2026-04-16</td>
+                            <td>Responsive media queries</td>
+                            <td><strong>3 breakpoints</strong></td>
+                            <td><mark class="status-inprogress">In Progress</mark></td>
+                        </tr>
+                        <tr>
+                            <td>2026-04-15</td>
+                            <td>Table styling &amp; hover effects</td>
+                            <td><strong>12 rows</strong></td>
+                            <td><mark class="status-complete">Completed</mark></td>
+                        </tr>
+                        <tr>
+                            <td>2026-04-14</td>
+                            <td>Pure CSS animations</td>
+                            <td><strong>8 keyframes</strong></td>
+                            <td><mark class="status-complete">Completed</mark></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- MEDIA SECTION -->
+        <section id="media" class="section">
+            <div class="section-header">
+                <h2>Media Showcase</h2>
+                <p>Embedded video &amp; audio demonstrations</p>
+            </div>
+            
+            <div class="media-grid">
+                <!-- Video -->
+                <article class="media-card">
+                    <h3>Dashboard Intro Animation</h3>
+                    <video controls width="100%" poster="https://picsum.photos/id/1015/600/340">
+                        <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <p><em>Demo of hero section entrance animation built with @keyframes</em></p>
+                </article>
+                
+                <!-- Audio -->
+                <article class="media-card">
+                    <h3>NeoTech Theme Audio</h3>
+                    <audio controls>
+                        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+                        Your browser does not support the audio element.
+                    </audio>
+                    <p><em>Background music loop created as an example of embedded media</em></p>
+                </article>
+            </div>
+        </section>
+
+        <!-- FAQ SECTION -->
+        <section id="faq" class="section">
+            <div class="section-header">
+                <h2>Frequently Asked Questions</h2>
+                <p>Interactive accordion using native &lt;details&gt; &amp; &lt;summary&gt;</p>
+            </div>
+            
+            <div class="faq-container">
+                <details>
+                    <summary>How is this dashboard built without JavaScript?</summary>
+                    <p>All interactivity comes from pure CSS: hover effects, transitions, @keyframes animations, checkbox hack for mobile menu, and native &lt;details&gt; elements.</p>
+                </details>
+                
+                <details>
+                    <summary>Does it meet accessibility standards?</summary>
+                    <p>Yes. Every interactive element has proper labels, aria attributes, semantic HTML, and full keyboard navigation support.</p>
+                </details>
+                
+                <details>
+                    <summary>Is the design fully responsive?</summary>
+                    <p>Absolutely. Three breakpoints (desktop, tablet 768px, mobile 480px) using Flexbox, Grid, and custom media queries.</p>
+                </details>
+                
+                <details>
+                    <summary>Can I use this as a template?</summary>
+                    <p>Yes! Copy, modify, and deploy. Everything is open for learning and inspiration.</p>
+                </details>
+                
+                <details>
+                    <summary>What makes the progress bars animate?</summary>
+                    <p>Each bar uses a unique @keyframes rule that fills from 0% to its final width on page load.</p>
+                </details>
+            </div>
+        </section>
+
+        <!-- CONTACT FORM SECTION -->
+        <section id="contact" class="section">
+            <div class="section-header">
+                <h2>Contact System</h2>
+                <p>Reach out directly through this fully styled form</p>
+            </div>
+            
+            <form id="contact-form" class="contact-form" action="#" method="POST" novalidate>
+                <fieldset>
+                    <legend>Send a message</legend>
+                    
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" name="name" required aria-required="true" placeholder="Jordan Hale">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" required aria-required="true" placeholder="you@email.com">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="subject">Subject</label>
+                        <select id="subject" name="subject" required aria-required="true">
+                            <option value="">Select one...</option>
+                            <option value="collaboration">Collaboration Opportunity</option>
+                            <option value="feedback">Feedback on Dashboard</option>
+                            <option value="demo">Request Live Demo</option>
+                            <option value="other">Other Inquiry</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message">Your Message</label>
+                        <textarea id="message" name="message" rows="5" required aria-required="true" 
+                                  placeholder="Tell me about your next big idea..."></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn-primary submit-btn">
+                        Send Message to NeoTech
+                    </button>
+                </fieldset>
+            </form>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2026 NeoTech Interactive Developer Dashboard • Built as a pure HTML &amp; CSS demonstration</p>
+            <p class="footer-links">
+                <a href="#">Privacy</a> • 
+                <a href="#">Terms</a> • 
+                <a href="#">GitHub Repo</a>
+            </p>
+            <p>Made with <strong>❤️</strong> and zero JavaScript</p>
+        </div>
+    </footer>
+</body>
+</html>

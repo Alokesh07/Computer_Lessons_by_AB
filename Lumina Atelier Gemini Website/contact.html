@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Booking Terminal | Lumina Contact</title>
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/components.css">
+    <style>
+        .contact-split-grid {
+            display: grid; grid-template-columns: 1.2fr 1fr; gap: 6rem;
+            padding: 13rem 4% 8rem; max-width: 1500px; margin: 0 auto;
+        }
+        @media (max-width: 991px) { .contact-split-grid { grid-template-columns: 1fr; gap: 4rem; } }
+    </style>
+</head>
+<body>
+    <input type="checkbox" id="theme-switch-checkbox" style="display: none;">
+    <header class="lumina-header">
+        <div class="lumina-nav-container">
+            <a href="index.html" class="nav-link" style="font-family:var(--font-display); font-size: 1.4rem; text-transform: none; color:var(--accent); padding:0; font-weight:700;">Lumina Atelier</a>
+            <input type="checkbox" id="nav-toggle-state" class="hamburger-checkbox">
+            <div style="grid-column:3; display:flex; align-items:center; gap:0.8rem;">
+                <label for="theme-switch-checkbox" class="theme-switch-label" title="Switch Theme Matrix">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 18.36l1.42-1.42M18.36 4.22l1.42-1.42"/></svg>
+                </label>
+                <label for="nav-toggle-state" class="hamburger-trigger"><span></span></label>
+            </div>
+            <nav class="nav-menu">
+                <div class="menu-group-title">Core Spaces</div>
+                <a href="index.html" class="nav-link">Home Space</a>
+                <a href="about.html" class="nav-link">About Studio</a>
+                <a href="portfolio.html" class="nav-link">Portfolio Matrix</a>
+                <a href="services.html" class="nav-link">Services &amp; Pricing</a>
+                <a href="blog.html" class="nav-link">Journal Log</a>
+                <a href="contact.html" class="nav-link">Contact Vault</a>
+                <div class="menu-group-title">Portfolio Layers</div>
+                <a href="portfolio.html#branding" class="nav-link" style="font-size:0.78rem; color:var(--text-muted);">Web Design</a>
+                <a href="portfolio.html#branding" class="nav-link" style="font-size:0.78rem; color:var(--text-muted);">Branding</a>
+                <a href="portfolio.html#photography" class="nav-link" style="font-size:0.78rem; color:var(--text-muted);">Photography</a>
+                <a href="portfolio.html#illustration" class="nav-link" style="font-size:0.78rem; color:var(--text-muted);">Illustration</a>
+                <div class="menu-group-title">Procurement</div>
+                <a href="services.html#tier-matrix" class="nav-link" style="color:var(--accent);">Package Matrix</a>
+                <a href="contact.html#bookings" class="nav-link" style="color:var(--primary);">Secure Booking</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="contact-split-grid">
+        <div>
+            <h2 style="font-family: var(--font-display); font-size: var(--fs-h2); color: var(--accent); margin-bottom: 1rem;">Secure Transmission Vault</h2>
+            <p style="color:var(--text-muted); margin-bottom: 3.5rem; font-size:0.95rem;">All project pipelines and incoming technical briefs are directly forwarded to verified endpoint nodes.</p>
+            
+            <form action="https://formsubmit.co/ruchet.rakshit@gmail.com" method="POST">
+                <input type="hidden" name="_subject" value="Lumina Atelier: Secure Project Brief Transmitted">
+                <input type="hidden" name="_honeypot" style="display:none">
+
+                <div class="form-field-group">
+                    <input type="text" name="identity" class="luxury-input" placeholder=" " required>
+                    <label class="luxury-label">Corporate Identity / Entity Name</label>
+                </div>
+
+                <div class="form-field-group">
+                    <input type="email" name="email" class="luxury-input" placeholder=" " required>
+                    <label class="luxury-label">Communications Return Channel Email</label>
+                </div>
+
+                <div id="bookings" class="form-field-group">
+                    <input type="text" name="package" class="luxury-input" placeholder=" " value="Premium Business Package ($49,990)">
+                    <label class="luxury-label">Selected Procurement Tier Config</label>
+                </div>
+
+                <div class="form-field-group">
+                    <textarea name="brief" class="luxury-input" placeholder=" " style="min-height:130px; resize:vertical;" required></textarea>
+                    <label class="luxury-label">Strategic Project Execution Brief</label>
+                </div>
+
+                <button type="submit" class="btn-lux glow-active" style="width: 100%; cursor: pointer;">
+                    Deploy Secure Transmission Loop
+                </button>
+            </form>
+        </div>
+
+        <div style="display: flex; flex-direction: column; justify-content: center;">
+            <div class="premium-card" style="padding: 4.5rem;">
+                <h4 style="font-family: var(--font-display); color: var(--primary); font-size: 1.5rem; margin-bottom: 2rem;">Routing Node Specifications</h4>
+                <p style="color:var(--text-muted); line-height: 1.8; margin-bottom: 1.5rem;">
+                    <strong>Inbound Channel Routing Address:</strong><br>
+                    <a href="mailto:ruchet.rakshit@gmail.com" style="color: var(--accent); text-decoration: none;">ruchet.rakshit@gmail.com</a>
+                </p>
+                <p style="color:var(--text-muted); line-height: 1.8;">
+                    <strong>Physical Lab Core Infrastructure:</strong><br>
+                    Salt Lake Sector V, Technological Corridor Node, Kolkata, West Bengal, India.
+                </p>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

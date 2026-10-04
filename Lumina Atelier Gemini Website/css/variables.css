@@ -1,0 +1,72 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap');
+
+:root {
+    /* Precise Luxury Color Tokens */
+    --primary: #00F5FF;         /* Electric Cyan */
+    --accent: #E8C670;          /* Soft Gold */
+    --bg-dark: #0A0F1C;         /* Deep Navy Base */
+    --bg-surface: #12192C;      /* Surface Container Cards */
+    --bg-surface-elevated: #1A243F;
+    --text-light: #F0F4FF;      /* High-Contrast Typography */
+    --text-muted: #8A99AD;      /* Secondary Labels */
+    --border-color: rgba(240, 244, 255, 0.06);
+    
+    /* Strict Fluid Typography via clamp() Engine */
+    --font-display: 'Playfair Display', serif;
+    --font-sans: 'Inter', sans-serif;
+    --fs-h1: clamp(3.5rem, 9vw, 7.5rem);
+    --fs-h2: clamp(2.2rem, 6vw, 3.8rem);
+    --fs-h3: clamp(1.6rem, 3.5vw, 2.4rem);
+    --fs-body: clamp(0.95rem, 1.3vw, 1.2rem);
+    --fs-nav: clamp(0.72rem, 0.85vw, 0.85rem);
+
+    /* Animation & Glassmorphism Physics Tokens */
+    --transition-smooth: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    --transition-snappy: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    --glass-blur: blur(16px);
+    --glass-bg: rgba(10, 15, 28, 0.82);
+    --border-glow: 0 0 30px rgba(0, 245, 255, 0.2);
+}
+
+/* 100% Pure CSS Relational Theme Switching via :has() */
+html:has(#theme-switch-checkbox:checked) {
+    --bg-dark: #F4F7FC;
+    --bg-surface: #FFFFFF;
+    --bg-surface-elevated: #EAF0F9;
+    --text-light: #0A0F1C;
+    --text-muted: #5A6980;
+    --glass-bg: rgba(244, 247, 252, 0.85);
+    --border-color: rgba(10, 15, 28, 0.08);
+}
+
+/* Base Global Layout Setup */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+    background-color: var(--bg-dark);
+    color: var(--text-light);
+    font-family: var(--font-sans);
+    overflow-x: hidden;
+    transition: background-color 0.6s ease, color 0.6s ease;
+}
+
+/* Organic Micro-Texture Film Grain Filter Overlay */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    opacity: 0.035;
+    pointer-events: none;
+    z-index: 9999;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-dark); }
+::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--primary); }

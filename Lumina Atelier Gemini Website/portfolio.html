@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selected Works Portfolio | Lumina Showcase Matrix</title>
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/components.css">
+    <style>
+        .portfolio-matrix-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 3rem; padding: 13rem 4% 8rem; max-width: 1600px; margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <input type="checkbox" id="theme-switch-checkbox" style="display: none;">
+    <header class="lumina-header">
+        <div class="lumina-nav-container">
+            <a href="index.html" class="nav-link" style="font-family:var(--font-display); font-size: 1.4rem; text-transform: none; color:var(--accent); padding:0; font-weight:700;">Lumina Atelier</a>
+            <input type="checkbox" id="nav-toggle-state" class="hamburger-checkbox">
+            <div style="grid-column:3; display:flex; align-items:center; gap:0.8rem;">
+                <label for="theme-switch-checkbox" class="theme-switch-label" title="Switch Theme Matrix">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 18.36l1.42-1.42M18.36 4.22l1.42-1.42"/></svg>
+                </label>
+                <label for="nav-toggle-state" class="hamburger-trigger"><span></span></label>
+            </div>
+            <nav class="nav-menu">
+                <div class="menu-group-title">Core Spaces</div>
+                <a href="index.html" class="nav-link">Home Space</a>
+                <a href="about.html" class="nav-link">About Studio</a>
+                <a href="portfolio.html" class="nav-link">Portfolio Matrix</a>
+                <a href="services.html" class="nav-link">Services &amp; Pricing</a>
+                <a href="blog.html" class="nav-link">Journal Log</a>
+                <a href="contact.html" class="nav-link">Contact Vault</a>
+                <div class="menu-group-title">Portfolio Layers</div>
+                <a href="portfolio.html#branding" class="nav-link" style="font-size:0.78rem; color:var(--text-muted);">Web Design</a>
+                <a href="portfolio.html#branding" class="nav-link" style="font-size:0.78rem; color:var(--text-muted);">Branding</a>
+                <a href="portfolio.html#photography" class="nav-link" style="font-size:0.78rem; color:var(--text-muted);">Photography</a>
+                <a href="portfolio.html#illustration" class="nav-link" style="font-size:0.78rem; color:var(--text-muted);">Illustration</a>
+                <div class="menu-group-title">Procurement</div>
+                <a href="services.html#tier-matrix" class="nav-link" style="color:var(--accent);">Package Matrix</a>
+                <a href="contact.html#bookings" class="nav-link" style="color:var(--primary);">Secure Booking</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="portfolio-matrix-grid">
+        <!-- Project Card 1 -->
+        <div class="premium-card">
+            <div class="card-img-holder"></div>
+            <div style="padding: 2.2rem;">
+                <h3 style="font-family: var(--font-display); font-size: 1.4rem; margin-bottom: 0.4rem;">Corprace Architecture</h3>
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.8rem;">Corporate Space Identity System</p>
+                <a href="product-view.html#corprace" class="btn-lux" style="padding: 0.75rem 1.6rem; font-size: 0.75rem;">Inspect Blueprint Specs</a>
+            </div>
+        </div>
+
+        <!-- Project Card 2 -->
+        <div class="premium-card">
+            <div class="card-img-holder"></div>
+            <div style="padding: 2.2rem;">
+                <h3 style="font-family: var(--font-display); font-size: 1.4rem; margin-bottom: 0.4rem;">Alket Platform</h3>
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.8rem;">Luxury Retail Design Framework</p>
+                <a href="product-view.html#alket" class="btn-lux" style="padding: 0.75rem 1.6rem; font-size: 0.75rem;">Inspect Blueprint Specs</a>
+            </div>
+        </div>
+
+        <!-- Project Card 3 -->
+        <div class="premium-card">
+            <div class="card-img-holder"></div>
+            <div style="padding: 2.2rem;">
+                <h3 style="font-family: var(--font-display); font-size: 1.4rem; margin-bottom: 0.4rem;">Auge Fine Typography</h3>
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.8rem;">Editorial Typeface Synthesis</p>
+                <a href="product-view.html#auge" class="btn-lux" style="padding: 0.75rem 1.6rem; font-size: 0.75rem;">Inspect Blueprint Specs</a>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
