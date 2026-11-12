@@ -1,796 +1,962 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-palette="festive">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Diwali | Futuristic Light Festival</title>
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Orbitron:wght@400;600;800&family=Plus+Jakarta+Sans:wght@300;400;600&display=swap" rel="stylesheet">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#080511">
+    <title>Happy Diwali | Festival of Lights</title>
     <style>
+        /* 1. Theme and page foundations */
         :root {
-            --glow-gold: #ffb703;
-            --glow-orange: #fb8500;
-            --glow-magenta: #f72585;
-            --glow-purple: #7209b7;
-            --glow-cyan: #4cc9f0;
+            color-scheme: dark;
+            --gold: #ffbf47;
+            --orange: #ff7b32;
+            --pink: #f45b9a;
+            --purple: #a879ff;
+            --cyan: #62dff5;
+            --ink: #080511;
+            --panel: rgba(18, 12, 35, .78);
+            --panel-border: rgba(255, 191, 71, .24);
+            --text: #fff9ee;
+            --muted: #d3c7e9;
+            --heading-font: Georgia, "Times New Roman", serif;
+            --body-font: "Trebuchet MS", Arial, sans-serif;
         }
+
+        html[data-palette="cyber"] {
+            --gold: #00f5d4;
+            --orange: #4cc9f0;
+            --pink: #f72585;
+            --purple: #9d4edd;
+            --cyan: #80ffdb;
+        }
+
+        html[data-palette="gold"] {
+            --gold: #ffe5a3;
+            --orange: #ff9f43;
+            --pink: #ffc857;
+            --purple: #e6a23c;
+            --cyan: #fff3c4;
+        }
+
+        * { box-sizing: border-box; }
 
         body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: #030008;
-            color: #ffffff;
+            min-width: 320px;
+            min-height: 100vh;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
             overflow-x: hidden;
-            user-select: none;
+            color: var(--text);
+            background:
+                radial-gradient(ellipse at 50% 48%, rgba(80, 31, 92, .28), transparent 55%),
+                var(--ink);
+            font-family: var(--body-font);
         }
 
-        .font-cinzel { font-family: 'Cinzel', serif; }
-        .font-orbitron { font-family: 'Orbitron', sans-serif; }
-
-        /* Glassmorphism styling */
-        .glass-panel {
-            background: rgba(15, 7, 32, 0.65);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 215, 0, 0.18);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5), 
-                        inset 0 0 15px rgba(255, 183, 3, 0.05);
+        button, input, select { font: inherit; }
+        button { color: inherit; }
+        button:focus-visible, input:focus-visible, select:focus-visible {
+            outline: 3px solid var(--cyan);
+            outline-offset: 3px;
         }
 
-        .glass-btn {
-            background: rgba(255, 183, 3, 0.1);
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 183, 3, 0.3);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
         }
 
-        .glass-btn:hover {
-            background: rgba(255, 183, 3, 0.25);
-            border-color: rgba(255, 215, 0, 0.8);
-            box-shadow: 0 0 20px rgba(255, 183, 3, 0.5);
+        /* 2. Background artwork and shared components */
+        #fireworksCanvas {
+            position: fixed;
+            z-index: 0;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            cursor: crosshair;
+        }
+
+        .rangoli {
+            position: fixed;
+            z-index: 0;
+            top: 50%;
+            left: 50%;
+            width: min(78vw, 720px);
+            aspect-ratio: 1;
+            color: var(--gold);
+            opacity: .2;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            transition: transform .7s ease, opacity .7s ease;
+        }
+
+        .rangoli.is-surging {
+            opacity: .65;
+            transform: translate(-50%, -50%) scale(1.13) rotate(35deg);
+        }
+
+        .rangoli circle, .rangoli path, .rangoli polygon { vector-effect: non-scaling-stroke; }
+        .rangoli .flow { stroke-dasharray: 10 15; animation: circuit-flow 3s linear infinite; }
+
+        .glass {
+            border: 1px solid var(--panel-border);
+            background: var(--panel);
+            box-shadow: 0 12px 36px rgba(0, 0, 0, .35), inset 0 0 20px rgba(255, 191, 71, .04);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+        }
+
+        .button {
+            min-height: 44px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: .55rem;
+            padding: .7rem 1rem;
+            border: 1px solid rgba(255, 191, 71, .35);
+            border-radius: 14px;
+            background: rgba(255, 191, 71, .09);
+            color: var(--text);
+            cursor: pointer;
+            transition: background .2s ease, border-color .2s ease, transform .2s ease;
+        }
+
+        .button:hover {
             transform: translateY(-2px);
+            border-color: var(--gold);
+            background: rgba(255, 191, 71, .18);
         }
 
-        /* Glowing text & Animations */
-        .neon-text-gold {
-            text-shadow: 0 0 10px rgba(255, 183, 3, 0.8),
-                         0 0 20px rgba(255, 183, 3, 0.5),
-                         0 0 40px rgba(251, 133, 0, 0.4);
+        .button:disabled { cursor: wait; opacity: .7; }
+        .button--primary {
+            border: 0;
+            background: linear-gradient(110deg, var(--gold), var(--orange));
+            color: #1b1020;
+            font-weight: 800;
         }
 
-        .neon-text-magenta {
-            text-shadow: 0 0 10px rgba(247, 37, 133, 0.8),
-                         0 0 25px rgba(247, 37, 133, 0.6);
+        .button--primary:hover { background: linear-gradient(110deg, var(--gold), var(--orange)); filter: brightness(1.08); }
+        .button--small { min-height: 40px; padding: .55rem .8rem; font-size: .82rem; }
+        .eyebrow { color: var(--gold); font-size: .72rem; font-weight: 700; letter-spacing: .16em; }
+
+        /* 3. Header, main celebration and footer */
+        .site-header, main, .site-footer { position: relative; z-index: 1; }
+
+        .site-header {
+            width: min(100% - 2rem, 1200px);
+            margin: 0 auto;
+            padding: 1.25rem 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
         }
 
-        /* Glowing circuit SVG animation */
-        .circuit-line {
-            stroke-dasharray: 10, 15;
-            animation: circuitFlow 3s linear infinite;
+        .brand { display: flex; align-items: center; gap: .8rem; }
+        .brand-mark {
+            width: 46px;
+            height: 46px;
+            display: grid;
+            place-items: center;
+            border: 1px solid var(--panel-border);
+            border-radius: 14px;
+            color: var(--gold);
+            font-size: 1.45rem;
         }
 
-        @keyframes circuitFlow {
-            to { stroke-dashoffset: -50; }
+        .brand-name { display: block; margin-top: .2rem; font: 700 1rem var(--heading-font); letter-spacing: .08em; }
+        .header-controls, .actions { display: flex; flex-wrap: wrap; justify-content: center; gap: .65rem; }
+        .header-controls .button { padding: .6rem .8rem; font-size: .78rem; }
+
+        main {
+            width: min(100% - 2rem, 900px);
+            flex: 1;
+            margin: 1.5rem auto 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
         }
 
-        /* Diya flame animation */
-        .flame-core {
-            animation: innerFlame 1.2s ease-in-out infinite alternate;
-            transform-origin: center bottom;
+        .festival-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: .65rem;
+            padding: .55rem .95rem;
+            border-radius: 999px;
         }
 
-        .flame-aura {
-            animation: outerAura 1.8s ease-in-out infinite alternate;
-            transform-origin: center bottom;
+        .live-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--gold);
+            box-shadow: 0 0 12px var(--gold);
         }
 
-        @keyframes innerFlame {
-            0% { transform: scale(0.95) rotate(-2deg); filter: drop-shadow(0 0 12px #ffb703); }
-            50% { transform: scale(1.05) rotate(2deg); filter: drop-shadow(0 0 22px #fb8500); }
-            100% { transform: scale(0.98) rotate(-1deg); filter: drop-shadow(0 0 15px #ff0055); }
+        h1 {
+            margin: .8rem 0 .45rem;
+            color: var(--gold);
+            font: 900 clamp(2.7rem, 8vw, 6.4rem)/1.05 var(--heading-font);
+            letter-spacing: -.035em;
+            text-shadow: 0 0 12px color-mix(in srgb, var(--gold) 65%, transparent),
+                         0 0 38px color-mix(in srgb, var(--orange) 35%, transparent);
         }
 
-        @keyframes outerAura {
-            0% { opacity: 0.6; transform: scale(0.92); }
-            100% { opacity: 0.95; transform: scale(1.12); }
+        .welcome-copy {
+            max-width: 610px;
+            margin: .5rem auto .7rem;
+            color: var(--muted);
+            font-size: clamp(.95rem, 2vw, 1.12rem);
+            line-height: 1.75;
         }
 
-        /* Custom Scrollbar for preset wishes modal */
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: rgba(10, 5, 20, 0.8); }
-        ::-webkit-scrollbar-thumb { background: rgba(255, 183, 3, 0.4); border-radius: 3px; }
-        ::-webkit-scrollbar-thumb:hover { background: rgba(255, 183, 3, 0.8); }
+        .diya-button {
+            position: relative;
+            width: clamp(190px, 38vw, 280px);
+            margin: .75rem 0 .25rem;
+            padding: 0;
+            border: 0;
+            background: transparent;
+            cursor: pointer;
+            filter: drop-shadow(0 10px 28px rgba(255, 173, 45, .26));
+            transition: transform .25s ease;
+        }
+
+        .diya-button:hover { transform: scale(1.04); }
+        .diya-button svg { display: block; width: 100%; overflow: visible; }
+        .flame-core { transform-origin: center bottom; animation: flame-flicker 1.2s ease-in-out infinite alternate; }
+        .flame-aura { transform-origin: center bottom; animation: aura-pulse 1.8s ease-in-out infinite alternate; }
+
+        .diya-hint { display: block; margin-top: -.25rem; color: var(--gold); font-size: .7rem; letter-spacing: .12em; }
+        .actions { margin-top: 1.5rem; }
+        .actions .button { font-size: .78rem; font-weight: 700; letter-spacing: .05em; }
+
+        .site-footer {
+            width: min(100% - 2rem, 1200px);
+            margin: 0 auto;
+            padding: .9rem 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: .8rem;
+            border-bottom: 0;
+            border-radius: 18px 18px 0 0;
+            color: var(--muted);
+            font-size: .78rem;
+        }
+
+        .stats { display: flex; flex-wrap: wrap; gap: 1rem; }
+        .stats strong { margin-left: .25rem; color: var(--text); font-variant-numeric: tabular-nums; }
+        .footer-credit { color: var(--gold); font-size: .68rem; letter-spacing: .08em; }
+
+        /* 4. Greeting dialog */
+        .wish-dialog {
+            width: min(100% - 2rem, 500px);
+            max-height: min(90vh, 760px);
+            padding: 0;
+            overflow: auto;
+            border: 1px solid var(--panel-border);
+            border-radius: 24px;
+            color: var(--text);
+            background: #100a20;
+            box-shadow: 0 24px 80px rgba(0, 0, 0, .65);
+        }
+
+        .wish-dialog::backdrop { background: rgba(0, 0, 0, .78); backdrop-filter: blur(7px); }
+        .dialog-content { padding: clamp(1.25rem, 5vw, 2rem); }
+        .dialog-heading { margin: 0; color: var(--gold); font: 700 1.6rem var(--heading-font); }
+        .dialog-copy { margin: .4rem 0 1.3rem; color: var(--muted); font-size: .88rem; line-height: 1.6; }
+        .dialog-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; }
+        .close-button { min-width: 42px; min-height: 42px; border-radius: 50%; font-size: 1.2rem; }
+        .form-field { display: grid; gap: .4rem; margin-top: 1rem; text-align: left; }
+        .form-field label { color: var(--gold); font-size: .72rem; font-weight: 700; letter-spacing: .08em; }
+        .form-field input, .form-field select, .wish-preview {
+            width: 100%;
+            padding: .75rem .85rem;
+            border: 1px solid rgba(168, 121, 255, .35);
+            border-radius: 11px;
+            color: var(--text);
+            background: rgba(30, 18, 51, .9);
+        }
+
+        .wish-preview { min-height: 125px; resize: vertical; color: #f9e9c2; line-height: 1.5; }
+        .dialog-actions { display: flex; flex-wrap: wrap; gap: .65rem; margin-top: 1rem; }
+        .dialog-actions .button { flex: 1 1 145px; }
+        .status-message { min-height: 1.3em; margin: .8rem 0 0; color: var(--cyan); font-size: .83rem; }
+
+        /* 5. Motion and small-screen adjustments */
+        @keyframes circuit-flow { to { stroke-dashoffset: -50; } }
+        @keyframes flame-flicker {
+            from { transform: scale(.96) rotate(-2deg); filter: drop-shadow(0 0 10px var(--gold)); }
+            to { transform: scale(1.04) rotate(2deg); filter: drop-shadow(0 0 22px var(--orange)); }
+        }
+        @keyframes aura-pulse { from { opacity: .55; transform: scale(.92); } to { opacity: .95; transform: scale(1.12); } }
+
+        @media (max-width: 620px) {
+            .site-header { align-items: flex-start; }
+            .brand-mark { width: 40px; height: 40px; }
+            .brand-name { font-size: .85rem; }
+            .header-controls { max-width: 190px; justify-content: flex-end; }
+            .header-controls .button { min-height: 40px; padding: .5rem .65rem; }
+            .header-label { display: none; }
+            main { margin-top: 1rem; }
+            .actions { max-width: 420px; }
+            .actions .button { flex: 1 1 145px; }
+            .site-footer { flex-direction: column; text-align: center; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                scroll-behavior: auto !important;
+                animation-duration: .01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: .01ms !important;
+            }
+        }
     </style>
 </head>
-<body class="min-h-screen relative flex flex-col justify-between items-center selection:bg-yellow-500 selection:text-black">
+<body>
+    <!-- Decorative canvas is interactive; use Enter or Space to create a burst. -->
+    <canvas id="fireworksCanvas" aria-label="Interactive fireworks. Click or press Enter to create a burst." tabindex="0"></canvas>
 
-    <!-- CANVAS BACKGROUND (Fireworks & Interactive Particles) -->
-    <canvas id="fireworksCanvas" class="fixed inset-0 w-full h-full z-0 pointer-events-auto cursor-crosshair"></canvas>
+    <svg class="rangoli" id="circuitRangoli" viewBox="0 0 500 500" fill="none" aria-hidden="true">
+        <circle cx="250" cy="250" r="230" stroke="currentColor" stroke-dasharray="4 8" opacity=".5"/>
+        <circle cx="250" cy="250" r="180" stroke="var(--pink)" stroke-width="1.5" opacity=".7"/>
+        <circle cx="250" cy="250" r="120" stroke="var(--cyan)" stroke-dasharray="12 6"/>
+        <g class="flow" stroke="currentColor" stroke-width="1.5">
+            <path d="M250 20v50M250 430v50M20 250h50M430 250h50M87 87l35 35M378 378l35 35M87 413l35-35M378 87l35 35"/>
+            <polygon points="250,70 300,170 410,130 350,230 430,310 320,320 310,430 230,350 140,410 170,300 70,290 160,210 100,110 200,160" stroke="var(--purple)"/>
+        </g>
+        <circle cx="250" cy="70" r="4" fill="currentColor"/>
+        <circle cx="250" cy="430" r="4" fill="currentColor"/>
+        <circle cx="70" cy="250" r="4" fill="var(--cyan)"/>
+        <circle cx="430" cy="250" r="4" fill="var(--cyan)"/>
+    </svg>
 
-    <!-- SACRED GEOMETRY / CIRCUIT RANGOLI OVERLAY BACKGROUND -->
-    <div class="fixed inset-0 z-0 pointer-events-none flex items-center justify-center opacity-30 sm:opacity-40">
-        <svg id="circuitRangoli" class="w-[320px] h-[320px] sm:w-[600px] sm:h-[600px] md:w-[750px] md:h-[750px] transition-all duration-700" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <!-- Concentric Tech Circles -->
-            <circle cx="250" cy="250" r="230" stroke="#ffb703" stroke-width="1" stroke-dasharray="4 8" opacity="0.4"/>
-            <circle cx="250" cy="250" r="180" stroke="#f72585" stroke-width="1.5" opacity="0.5"/>
-            <circle cx="250" cy="250" r="120" stroke="#4cc9f0" stroke-width="1" stroke-dasharray="12 6"/>
-            
-            <!-- Circuit Paths & Nodes -->
-            <g stroke="#ffb703" stroke-width="1.5" class="circuit-line">
-                <path d="M250,20 L250,70 M250,430 L250,480 M20,250 L70,250 M430,250 L480,250"/>
-                <path d="M87,87 L122,122 M378,378 L413,413 M87,413 L122,378 M378,87 L413,122"/>
-                <!-- Geometrical Poly Star -->
-                <polygon points="250,70 300,170 410,130 350,230 430,310 320,320 310,430 230,350 140,410 170,300 70,290 160,210 100,110 200,160" fill="none" stroke="#7209b7" stroke-width="1.2" opacity="0.6"/>
-            </g>
-
-            <!-- Radial Glowing Nodes -->
-            <circle cx="250" cy="70" r="4" fill="#ffb703" class="animate-ping"/>
-            <circle cx="250" cy="430" r="4" fill="#ffb703" class="animate-ping"/>
-            <circle cx="70" cy="250" r="4" fill="#4cc9f0"/>
-            <circle cx="430" cy="250" r="4" fill="#4cc9f0"/>
-            <circle cx="122" cy="122" r="3" fill="#f72585"/>
-            <circle cx="378" cy="378" r="3" fill="#f72585"/>
-        </svg>
-    </div>
-
-    <!-- NAVIGATION / HEADER BAR -->
-    <header class="relative z-20 w-full max-w-7xl px-4 py-4 sm:py-6 flex justify-between items-center">
-        <!-- Logo / Brand -->
-        <div class="flex items-center space-x-3">
-            <div class="w-10 h-10 rounded-xl glass-panel flex items-center justify-center text-amber-400 shadow-lg shadow-amber-500/20 border border-amber-400/40">
-                <i class="fa-solid font-bold fa-dharmachakra text-xl animate-spin" style="animation-duration: 12s;"></i>
-            </div>
-            <div>
-                <span class="font-orbitron text-xs sm:text-sm tracking-widest text-amber-400/80 block font-semibold">CYBER FESTIVAL v2.6</span>
-                <span class="font-cinzel text-base sm:text-lg font-bold tracking-wider text-white">DEEPAVALI 2026</span>
-            </div>
-        </div>
-
-        <!-- Right Quick Controls -->
-        <div class="flex items-center space-x-2 sm:space-x-3">
-            <button id="soundToggleBtn" class="glass-btn px-3 py-2 rounded-xl text-xs sm:text-sm text-amber-300 flex items-center space-x-2">
-                <i class="fa-solid fa-volume-high text-amber-400" id="soundIcon"></i>
-                <span class="hidden sm:inline font-orbitron">AUDIO: ON</span>
+    <header class="site-header">
+        <a class="brand" href="#" aria-label="Deepavali 2026 home">
+            <span class="brand-mark" aria-hidden="true">✦</span>
+            <span>
+                <span class="eyebrow">FESTIVAL OF LIGHTS</span>
+                <span class="brand-name">DEEPAVALI 2026</span>
+            </span>
+        </a>
+        <nav class="header-controls" aria-label="Festival controls">
+            <button class="button" id="soundToggleBtn" type="button" aria-pressed="false">
+                <span aria-hidden="true" id="soundIcon">◖</span>
+                <span class="header-label" id="soundLabel">SOUND: OFF</span>
             </button>
-            
-            <button id="autoLaunchBtn" class="glass-btn px-3 py-2 rounded-xl text-xs sm:text-sm text-amber-300 flex items-center space-x-2">
-                <i class="fa-solid fa-wand-magic-sparkles text-amber-400"></i>
-                <span class="hidden sm:inline font-orbitron" id="autoLaunchLabel">AUTO SHOW: ON</span>
+            <button class="button" id="autoLaunchBtn" type="button" aria-pressed="true">
+                <span aria-hidden="true">✧</span>
+                <span class="header-label" id="autoLaunchLabel">AUTO SHOW: ON</span>
             </button>
-        </div>
+            <button class="button" id="pauseBtn" type="button" aria-pressed="false">
+                <span aria-hidden="true" id="pauseIcon">Ⅱ</span>
+                <span class="header-label" id="pauseLabel">PAUSE</span>
+            </button>
+        </nav>
     </header>
 
-    <!-- MAIN CONTENT AREA -->
-    <main class="relative z-10 w-full max-w-5xl px-4 my-auto flex flex-col items-center text-center">
-
-        <!-- Festive Subtitle Badge -->
-        <div class="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full glass-panel border border-amber-500/30 text-amber-300 text-xs sm:text-sm font-orbitron tracking-widest mb-4 sm:mb-6 animate-pulse">
-            <span class="w-2 h-2 rounded-full bg-amber-400 inline-block"></span>
-            <span>THE FESTIVAL OF LIGHTS & TECH</span>
-            <span class="w-2 h-2 rounded-full bg-amber-400 inline-block"></span>
+    <main>
+        <div class="festival-badge glass">
+            <span class="live-dot" aria-hidden="true"></span>
+            <span class="eyebrow">A CELEBRATION OF LIGHT & JOY</span>
+            <span class="live-dot" aria-hidden="true"></span>
         </div>
-
-        <!-- Main Dynamic Title -->
-        <h1 class="font-cinzel font-black text-4xl sm:text-6xl md:text-7xl lg:text-8xl tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-amber-400 to-orange-500 neon-text-gold mb-3 leading-tight">
-            HAPPY DIWALI
-        </h1>
-
-        <p class="max-w-xl text-sm sm:text-base md:text-lg text-purple-200/90 font-light leading-relaxed mb-8 sm:mb-10 px-2">
-            May the supreme light illuminate your mind, enlighten your heart, and bring prosperity, peace, and joy into your digital & real world.
+        <h1>Happy Diwali</h1>
+        <p class="welcome-copy">
+            May the light of Diwali fill your home with happiness, your heart with peace,
+            and the year ahead with prosperity and joy.
         </p>
 
-        <!-- CENTRAL INTERACTIVE PLASMA DIYA -->
-        <div class="relative group my-4 sm:my-6 cursor-pointer transform transition-transform hover:scale-105 duration-300" id="centralDiya" title="Click to Surge Diya Energy!">
-            
-            <!-- Diya Outer Aura Rings -->
-            <div class="absolute -inset-8 sm:-inset-12 rounded-full bg-gradient-to-r from-amber-500/20 via-orange-500/20 to-pink-500/20 blur-2xl flame-aura pointer-events-none"></div>
-            
-            <svg class="w-48 h-48 sm:w-64 sm:h-64 relative z-10 drop-shadow-[0_15px_35px_rgba(255,183,3,0.4)]" viewBox="0 0 200 200" fill="none">
-                <!-- Outer Diya Flame Glow -->
-                <ellipse cx="100" cy="55" rx="25" ry="40" fill="url(#flameGlowGrad)" class="flame-aura opacity-70"/>
-                
-                <!-- Inner Flame Plasma -->
-                <path d="M100,15 C115,45 120,60 100,85 C80,60 85,45 100,15 Z" fill="url(#flameCoreGrad)" class="flame-core"/>
-                <path d="M100,30 C108,50 110,60 100,75 C90,60 92,50 100,30 Z" fill="#ffffff" class="flame-core opacity-90"/>
-
-                <!-- Futuristic Geometric Diya Bowl -->
-                <!-- Base Shadow & Platform -->
-                <ellipse cx="100" cy="145" rx="65" ry="12" fill="rgba(0, 0, 0, 0.6)"/>
-                
-                <!-- Metallic Gold Diya Body -->
-                <path d="M30,110 C30,150 170,150 170,110 C140,120 120,125 100,125 C80,125 60,120 30,110 Z" fill="url(#diyaBodyGrad)" stroke="#ffd700" stroke-width="1.5"/>
-                
-                <!-- High-tech Circuit Line Details on Diya Body -->
-                <path d="M45,120 Q100,140 155,120" stroke="#4cc9f0" stroke-width="1.5" fill="none" stroke-dasharray="4 4"/>
-                <path d="M60,130 Q100,145 140,130" stroke="#f72585" stroke-width="1" fill="none"/>
-                
-                <!-- Center Core Gem Node -->
-                <circle cx="100" cy="132" r="5" fill="#ffb703" stroke="#ffffff" stroke-width="1"/>
-
-                <!-- SVG Gradients -->
+        <button class="diya-button" id="centralDiya" type="button" aria-label="Light the diya and launch a celebration">
+            <svg viewBox="0 0 200 200" fill="none" aria-hidden="true">
                 <defs>
-                    <radialGradient id="flameGlowGrad" cx="50%" cy="50%" r="50%">
-                        <stop offset="0%" stop-color="#ffb703" stop-opacity="1"/>
-                        <stop offset="60%" stop-color="#fb8500" stop-opacity="0.6"/>
-                        <stop offset="100%" stop-color="#f72585" stop-opacity="0"/>
+                    <radialGradient id="flameGlow">
+                        <stop stop-color="#fff3b0"/>
+                        <stop offset=".55" stop-color="#ff9d22" stop-opacity=".65"/>
+                        <stop offset="1" stop-color="#f45b9a" stop-opacity="0"/>
                     </radialGradient>
-                    <linearGradient id="flameCoreGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-                        <stop offset="0%" stop-color="#ffffff"/>
-                        <stop offset="30%" stop-color="#ffb703"/>
-                        <stop offset="70%" stop-color="#fb8500"/>
-                        <stop offset="100%" stop-color="#f72585"/>
+                    <linearGradient id="flameColor" x1="100" y1="15" x2="100" y2="85" gradientUnits="userSpaceOnUse">
+                        <stop stop-color="#fff"/>
+                        <stop offset=".4" stop-color="#ffbf47"/>
+                        <stop offset="1" stop-color="#ff7b32"/>
                     </linearGradient>
-                    <linearGradient id="diyaBodyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" stop-color="#4a154b"/>
-                        <stop offset="30%" stop-color="#8c1c54"/>
-                        <stop offset="70%" stop-color="#ffb703"/>
-                        <stop offset="100%" stop-color="#240046"/>
+                    <linearGradient id="bowlColor" x1="36" y1="110" x2="164" y2="146" gradientUnits="userSpaceOnUse">
+                        <stop stop-color="#8f2862"/>
+                        <stop offset=".55" stop-color="#ffbf47"/>
+                        <stop offset="1" stop-color="#642361"/>
                     </linearGradient>
                 </defs>
+                <ellipse class="flame-aura" cx="100" cy="55" rx="32" ry="43" fill="url(#flameGlow)"/>
+                <path class="flame-core" d="M100 15c15 28 21 47 0 70-20-23-15-42 0-70Z" fill="url(#flameColor)"/>
+                <path d="M100 33c8 17 10 29 0 42-10-13-8-25 0-42Z" fill="#fff"/>
+                <ellipse cx="100" cy="148" rx="67" ry="10" fill="#000" fill-opacity=".4"/>
+                <path d="M32 110c0 41 136 41 136 0-28 11-48 15-68 15s-40-4-68-15Z" fill="url(#bowlColor)" stroke="#ffe5a3" stroke-width="2"/>
+                <path d="M49 121q51 20 102 0M63 132q37 14 74 0" stroke="#62dff5" stroke-dasharray="4 5"/>
+                <circle cx="100" cy="132" r="5" fill="#fff" stroke="#ffbf47"/>
             </svg>
+            <span class="diya-hint">✦ &nbsp; LIGHT THE DIYA &nbsp; ✦</span>
+        </button>
 
-            <!-- Click Hint Indicator -->
-            <div class="absolute -bottom-2 left-1/2 -translate-x-1/2 glass-panel px-3 py-1 rounded-full text-[10px] sm:text-xs text-amber-300 font-orbitron border border-amber-400/40 opacity-80 group-hover:opacity-100 transition-opacity">
-                <i class="fa-solid fa-fingerprint mr-1"></i> IGNITE POWER
-            </div>
-        </div>
-
-        <!-- MAIN INTERACTIVE CONTROL BUTTONS -->
-        <div class="flex flex-wrap justify-center gap-3 sm:gap-4 mt-6 sm:mt-8 z-20">
-            <button id="launchFireworkBtn" class="glass-btn px-5 py-3 rounded-2xl text-xs sm:text-sm font-orbitron tracking-wider text-amber-300 font-semibold flex items-center space-x-2 border-amber-400/50">
-                <i class="fa-solid fa-rocket text-amber-400"></i>
-                <span>LAUNCH FIREWORK</span>
-            </button>
-
-            <button id="themeToggleBtn" class="glass-btn px-5 py-3 rounded-2xl text-xs sm:text-sm font-orbitron tracking-wider text-purple-300 font-semibold flex items-center space-x-2 border-purple-400/50">
-                <i class="fa-solid fa-palette text-purple-400"></i>
-                <span>CYBER PALETTE</span>
-            </button>
-
-            <button id="customWishBtn" class="glass-btn px-5 py-3 rounded-2xl text-xs sm:text-sm font-orbitron tracking-wider text-pink-300 font-semibold flex items-center space-x-2 border-pink-400/50">
-                <i class="fa-solid fa-envelope-open-text text-pink-400"></i>
-                <span>SEND GREETING</span>
-            </button>
+        <div class="actions" aria-label="Celebration actions">
+            <button class="button" id="launchFireworkBtn" type="button"><span aria-hidden="true">✹</span> LAUNCH FIREWORK</button>
+            <button class="button" id="themeToggleBtn" type="button" aria-label="Change colour palette"><span aria-hidden="true">◈</span> CHANGE PALETTE</button>
+            <button class="button" id="customWishBtn" type="button"><span aria-hidden="true">✉</span> CREATE GREETING</button>
         </div>
     </main>
 
-    <!-- FOOTER / STATS BAR -->
-    <footer class="relative z-20 w-full max-w-7xl px-4 py-4 flex flex-col sm:flex-row justify-between items-center text-xs text-purple-300/70 glass-panel rounded-t-2xl border-t border-amber-500/20 mt-6 gap-2 sm:gap-0">
-        <div class="flex items-center space-x-4">
-            <span class="flex items-center"><i class="fa-solid fa-sparkles text-amber-400 mr-1.5"></i> Sparks: <strong id="particleCount" class="text-white ml-1">0</strong></span>
-            <span class="flex items-center"><i class="fa-solid fa-bolt text-cyan-400 mr-1.5"></i> FPS: <strong id="fpsCounter" class="text-white ml-1">60</strong></span>
+    <footer class="site-footer glass">
+        <div class="stats" aria-live="polite">
+            <span>✦ Sparks:<strong id="particleCount">0</strong></span>
+            <span>↯ FPS:<strong id="fpsCounter">0</strong></span>
         </div>
-        
-        <div class="text-center">
-            <span>Tap anywhere to construct digital Rangoli matrix & fireworks</span>
-        </div>
-
-        <div>
-            <span class="font-orbitron text-amber-400/80">DESIGNED WITH LIGHT & CODE</span>
-        </div>
+        <span>Click or tap the background to make a rangoli burst</span>
+        <span class="footer-credit">MADE WITH LIGHT & CODE</span>
     </footer>
 
-    <!-- MODAL: GREETING / CUSTOM WISH GENERATOR -->
-    <div id="wishModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md hidden opacity-0 transition-opacity duration-300">
-        <div class="glass-panel w-full max-w-md p-6 sm:p-8 rounded-3xl border border-amber-500/40 relative shadow-2xl">
-            <button id="closeModalBtn" class="absolute top-4 right-4 text-purple-300 hover:text-amber-400 text-xl transition-colors">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
-
-            <div class="text-center mb-6">
-                <div class="w-12 h-12 rounded-2xl glass-panel mx-auto flex items-center justify-center text-amber-400 mb-3 border border-amber-400/40">
-                    <i class="fa-solid fa-paper-plane text-xl"></i>
+    <dialog class="wish-dialog" id="wishDialog" aria-labelledby="dialogTitle">
+        <div class="dialog-content">
+            <div class="dialog-top">
+                <div>
+                    <p class="eyebrow">SHARE A LITTLE LIGHT</p>
+                    <h2 class="dialog-heading" id="dialogTitle">Create a Diwali greeting</h2>
                 </div>
-                <h3 class="font-cinzel text-xl sm:text-2xl font-bold text-amber-300">Share Diwali Blessings</h3>
-                <p class="text-xs text-purple-200/70 mt-1">Generate a high-tech greeting message for your family & friends.</p>
+                <button class="button close-button" id="closeDialogBtn" type="button" aria-label="Close greeting dialog">×</button>
             </div>
+            <p class="dialog-copy">Personalize a festive message, then copy it or share it from your device.</p>
 
-            <div class="space-y-4 text-left">
-                <div>
-                    <label class="block text-xs font-orbitron text-amber-400/90 mb-1">YOUR NAME</label>
-                    <input type="text" id="senderName" placeholder="Enter your name..." class="w-full bg-purple-950/40 border border-purple-500/30 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-amber-400 transition-colors">
+            <form id="wishForm">
+                <div class="form-field">
+                    <label for="senderName">Your name</label>
+                    <input id="senderName" name="sender" type="text" maxlength="60" autocomplete="name" placeholder="A Well-Wisher" autofocus>
                 </div>
-
-                <div>
-                    <label class="block text-xs font-orbitron text-amber-400/90 mb-1">RECIPIENT NAME</label>
-                    <input type="text" id="receiverName" placeholder="Enter recipient's name..." class="w-full bg-purple-950/40 border border-purple-500/30 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-amber-400 transition-colors">
+                <div class="form-field">
+                    <label for="receiverName">Recipient name</label>
+                    <input id="receiverName" name="recipient" type="text" maxlength="60" placeholder="Friend">
                 </div>
-
-                <div>
-                    <label class="block text-xs font-orbitron text-amber-400/90 mb-1">SELECT BLESSING</label>
-                    <select id="wishPreset" class="w-full bg-purple-950/80 border border-purple-500/30 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-amber-400">
-                        <option value="May your life be as bright, colorful, and sparkling as the festive lights of Diwali!">✨ Bright & Colorful Life</option>
-                        <option value="Wishing you infinite success, prosperity, peace, and algorithmic perfection this Diwali!">🚀 Prosperity & Tech Success</option>
-                        <option value="May the festival of lamps illuminate your home with wealth, health, and everlasting joy!">🪔 Traditional Joy & Health</option>
+                <div class="form-field">
+                    <label for="wishPreset">Choose a blessing</label>
+                    <select id="wishPreset" name="blessing">
+                        <option value="May your life be as bright, colorful, and sparkling as the festive lights of Diwali!">Bright & colorful</option>
+                        <option value="Wishing you success, prosperity, peace, and happiness this Diwali!">Prosperity & peace</option>
+                        <option value="May the festival of lamps illuminate your home with health, warmth, and everlasting joy!">Traditional joy & health</option>
                     </select>
                 </div>
-
-                <div class="pt-2">
-                    <button id="copyWishBtn" class="w-full py-3 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 text-black font-orbitron font-bold text-sm tracking-wider shadow-lg shadow-amber-500/30 hover:brightness-110 transition-all flex items-center justify-center space-x-2">
-                        <i class="fa-solid fa-copy"></i>
-                        <span>COPY GREETING CARD</span>
-                    </button>
+                <div class="form-field">
+                    <label for="wishPreview">Greeting preview</label>
+                    <textarea class="wish-preview" id="wishPreview" readonly aria-live="polite"></textarea>
                 </div>
-            </div>
+                <div class="dialog-actions">
+                    <button class="button button--primary" id="copyWishBtn" type="button">Copy greeting</button>
+                    <button class="button" id="shareWishBtn" type="button">Share greeting</button>
+                </div>
+                <p class="status-message" id="wishStatus" role="status" aria-live="polite"></p>
+            </form>
         </div>
-    </div>
+    </dialog>
 
-    <!-- JAVASCRIPT LOGIC ENGINE -->
     <script>
-        /**
-         * HAPPY DIWALI 2026 INTERACTIVE ENGINE
-         * Canvas Fireworks Particle Physics + Web Audio API Sound + UI Interactions
-         */
+        "use strict";
 
-        // --- WEB AUDIO API SYNTHESIZER ---
-        class SoundEngine {
-            constructor() {
-                this.ctx = null;
-                this.enabled = true;
-            }
-
-            init() {
-                if (!this.ctx) {
-                    const AudioContext = window.AudioContext || window.webkitAudioContext;
-                    this.ctx = new AudioContext();
-                }
-            }
-
-            playLaunchSound() {
-                if (!this.enabled) return;
-                this.init();
-                if (this.ctx.state === 'suspended') this.ctx.resume();
-
-                const osc = this.ctx.createOscillator();
-                const gain = this.ctx.createGain();
-
-                osc.type = 'sine';
-                osc.frequency.setValueAtTime(150, this.ctx.currentTime);
-                osc.frequency.exponentialRampToValueAtTime(800, this.ctx.currentTime + 0.3);
-
-                gain.gain.setValueAtTime(0.08, this.ctx.currentTime);
-                gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.3);
-
-                osc.connect(gain);
-                gain.connect(this.ctx.destination);
-
-                osc.start();
-                osc.stop(this.ctx.currentTime + 0.3);
-            }
-
-            playExplosionSound(pitchMultiplier = 1) {
-                if (!this.enabled) return;
-                this.init();
-                if (this.ctx.state === 'suspended') this.ctx.resume();
-
-                // White noise buffer for firework pop
-                const bufferSize = this.ctx.sampleRate * 0.4;
-                const buffer = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate);
-                const data = buffer.getChannelData(0);
-                for (let i = 0; i < bufferSize; i++) {
-                    data[i] = Math.random() * 2 - 1;
-                }
-
-                const noise = this.ctx.createBufferSource();
-                noise.buffer = buffer;
-
-                const filter = this.ctx.createBiquadFilter();
-                filter.type = 'lowpass';
-                filter.frequency.setValueAtTime(800 * pitchMultiplier, this.ctx.currentTime);
-                filter.frequency.exponentialRampToValueAtTime(50, this.ctx.currentTime + 0.4);
-
-                const gain = this.ctx.createGain();
-                gain.gain.setValueAtTime(0.2, this.ctx.currentTime);
-                gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.4);
-
-                noise.connect(filter);
-                filter.connect(gain);
-                gain.connect(this.ctx.destination);
-
-                noise.start();
-            }
-
-            playDiyaChime() {
-                if (!this.enabled) return;
-                this.init();
-                if (this.ctx.state === 'suspended') this.ctx.resume();
-
-                const freqs = [523.25, 659.25, 783.99, 1046.50]; // C Major chord
-                freqs.forEach((freq, idx) => {
-                    const osc = this.ctx.createOscillator();
-                    const gain = this.ctx.createGain();
-                    osc.type = 'triangle';
-                    osc.frequency.setValueAtTime(freq, this.ctx.currentTime + idx * 0.05);
-
-                    gain.gain.setValueAtTime(0.05, this.ctx.currentTime + idx * 0.05);
-                    gain.gain.exponentialRampToValueAtTime(0.0001, this.ctx.currentTime + 0.8 + idx * 0.05);
-
-                    osc.connect(gain);
-                    gain.connect(this.ctx.destination);
-
-                    osc.start(this.ctx.currentTime + idx * 0.05);
-                    osc.stop(this.ctx.currentTime + 0.8 + idx * 0.05);
-                });
-            }
-        }
-
-        const audioFX = new SoundEngine();
-
-        // --- CANVAS FIREWORKS ENGINE ---
-        const canvas = document.getElementById('fireworksCanvas');
-        const ctx = canvas.getContext('2d');
-
-        let width = (canvas.width = window.innerWidth);
-        let height = (canvas.height = window.innerHeight);
-
-        window.addEventListener('resize', () => {
-            width = (canvas.width = window.innerWidth);
-            height = (canvas.height = window.innerHeight);
-        });
-
-        // Color Palettes
+        /* 1. App configuration and shared state */
         const PALETTES = {
-            festive: ['#ffb703', '#fb8500', '#f72585', '#7209b7', '#4cc9f0', '#ffffff', '#ffd700'],
-            cyber: ['#00f5d4', '#7b2cbf', '#f72585', '#4cc9f0', '#3a0ca3'],
-            gold: ['#ffe5ec', '#ffb703', '#fb8500', '#ffd700', '#ffffff']
+            festive: ["#ffbf47", "#ff7b32", "#f45b9a", "#a879ff", "#62dff5", "#ffffff"],
+            cyber: ["#00f5d4", "#9d4edd", "#f72585", "#4cc9f0"],
+            gold: ["#ffe5a3", "#ff9f43", "#ffc857", "#fff3c4"]
         };
-
-        let currentPaletteKey = 'festive';
-
-        function getRandomColor() {
-            const colors = PALETTES[currentPaletteKey];
-            return colors[Math.floor(Math.random() * colors.length)];
-        }
-
-        // Particle System
+        const MAX_PARTICLES = 1400;
+        const MAX_FIREWORKS = 12;
+        const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
         const particles = [];
         const fireworks = [];
+        const ripples = [];
+        let currentPalette = "festive";
+        let autoLaunch = true;
+        let animationPaused = false;
+        let animationFrame = 0;
+        let previousFrameTime = 0;
+        let autoLaunchElapsed = 0;
+        let frameCount = 0;
+        let fpsElapsed = 0;
+        let audioContext = null;
+        let soundEnabled = false;
+        let width = window.innerWidth;
+        let height = window.innerHeight;
+        let pixelRatio = 1;
 
-        class Firework {
-            constructor(sx, sy, tx, ty) {
-                this.x = sx;
-                this.y = sy;
-                this.sx = sx;
-                this.sy = sy;
-                this.tx = tx;
-                this.ty = ty;
-                this.distanceToTarget = Math.hypot(tx - sx, ty - sy);
-                this.distanceTraveled = 0;
-                this.coordinates = [];
-                this.coordinateCount = 3;
-                while (this.coordinateCount--) {
-                    this.coordinates.push([this.x, this.y]);
-                }
-                this.angle = Math.atan2(ty - sy, tx - sx);
-                this.speed = 2;
-                this.acceleration = 1.05;
-                this.brightness = Math.random() * 50 + 50;
-                this.targetRadius = 4;
-                audioFX.playLaunchSound();
-            }
+        const canvas = document.querySelector("#fireworksCanvas");
+        const ctx = canvas.getContext("2d");
+        const particleCountEl = document.querySelector("#particleCount");
+        const fpsCounterEl = document.querySelector("#fpsCounter");
+        const wishDialog = document.querySelector("#wishDialog");
+        const wishForm = document.querySelector("#wishForm");
+        const wishPreview = document.querySelector("#wishPreview");
+        const wishStatus = document.querySelector("#wishStatus");
 
-            update(index) {
-                this.coordinates.pop();
-                this.coordinates.unshift([this.x, this.y]);
+        /* 2. Canvas sizing and particle effects */
+        function resizeCanvas() {
+            width = window.innerWidth;
+            height = window.innerHeight;
+            pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
+            canvas.width = Math.round(width * pixelRatio);
+            canvas.height = Math.round(height * pixelRatio);
+            ctx.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
+            ctx.clearRect(0, 0, width, height);
+        }
 
-                if (this.targetRadius < 8) this.targetRadius += 0.3;
-                else this.targetRadius = 4;
-
-                this.speed *= this.acceleration;
-                const vx = Math.cos(this.angle) * this.speed;
-                const vy = Math.sin(this.angle) * this.speed;
-                this.distanceTraveled = Math.hypot(this.x - this.sx, this.y - this.sy);
-
-                if (this.distanceTraveled >= this.distanceToTarget) {
-                    createParticles(this.tx, this.ty);
-                    fireworks.splice(index, 1);
-                    audioFX.playExplosionSound(Math.random() * 0.5 + 0.8);
-                } else {
-                    this.x += vx;
-                    this.y += vy;
-                }
-            }
-
-            draw() {
-                ctx.beginPath();
-                ctx.moveTo(this.coordinates[this.coordinates.length - 1][0], this.coordinates[this.coordinates.length - 1][1]);
-                ctx.lineTo(this.x, this.y);
-                ctx.strokeStyle = '#ffb703';
-                ctx.lineWidth = 2;
-                ctx.stroke();
-            }
+        function randomColor() {
+            const colors = PALETTES[currentPalette];
+            return colors[Math.floor(Math.random() * colors.length)];
         }
 
         class Particle {
             constructor(x, y, color) {
                 this.x = x;
                 this.y = y;
-                this.coordinates = [];
-                this.coordinateCount = 5;
-                while (this.coordinateCount--) {
-                    this.coordinates.push([this.x, this.y]);
-                }
+                this.previousX = x;
+                this.previousY = y;
                 this.angle = Math.random() * Math.PI * 2;
-                this.speed = Math.random() * 8 + 1;
-                this.friction = 0.95;
-                this.gravity = 0.9;
-                this.hue = color;
+                this.speed = Math.random() * 7 + 1;
+                this.friction = .955;
+                this.gravity = .055;
+                this.color = color;
                 this.alpha = 1;
-                this.decay = Math.random() * 0.02 + 0.015;
-                this.size = Math.random() * 3 + 1;
+                this.decay = Math.random() * .018 + .012;
+                this.size = Math.random() * 2.5 + 1;
             }
 
-            update(index) {
-                this.coordinates.pop();
-                this.coordinates.unshift([this.x, this.y]);
-                this.speed *= this.friction;
-                this.x += Math.cos(this.angle) * this.speed;
-                this.y += Math.sin(this.angle) * this.speed + this.gravity;
-                this.alpha -= this.decay;
-
-                if (this.alpha <= this.decay) {
-                    particles.splice(index, 1);
-                }
+            update(delta) {
+                const step = Math.min(delta / 16.67, 2);
+                this.previousX = this.x;
+                this.previousY = this.y;
+                this.speed *= Math.pow(this.friction, step);
+                this.x += Math.cos(this.angle) * this.speed * step;
+                this.y += Math.sin(this.angle) * this.speed * step + this.gravity * step;
+                this.alpha -= this.decay * step;
             }
 
             draw() {
-                ctx.beginPath();
-                ctx.moveTo(this.coordinates[this.coordinates.length - 1][0], this.coordinates[this.coordinates.length - 1][1]);
-                ctx.lineTo(this.x, this.y);
-                ctx.strokeStyle = this.hue;
-                ctx.globalAlpha = this.alpha;
+                ctx.globalAlpha = Math.max(this.alpha, 0);
+                ctx.strokeStyle = this.color;
                 ctx.lineWidth = this.size;
+                ctx.beginPath();
+                ctx.moveTo(this.previousX, this.previousY);
+                ctx.lineTo(this.x, this.y);
                 ctx.stroke();
-                ctx.globalAlpha = 1;
             }
         }
 
-        // Rangoli Click Ripple Class
-        class RangoliRipple {
+        class Firework {
+            constructor(startX, startY, targetX, targetY) {
+                this.x = startX;
+                this.y = startY;
+                this.startX = startX;
+                this.startY = startY;
+                this.targetX = targetX;
+                this.targetY = targetY;
+                this.distance = Math.hypot(targetX - startX, targetY - startY);
+                this.traveled = 0;
+                this.angle = Math.atan2(targetY - startY, targetX - startX);
+                this.speed = 3.5;
+                this.color = randomColor();
+                this.previousX = startX;
+                this.previousY = startY;
+            }
+
+            update(delta) {
+                const step = Math.min(delta / 16.67, 2);
+                this.previousX = this.x;
+                this.previousY = this.y;
+                this.speed *= Math.pow(1.045, step);
+                this.x += Math.cos(this.angle) * this.speed * step;
+                this.y += Math.sin(this.angle) * this.speed * step;
+                this.traveled = Math.hypot(this.x - this.startX, this.y - this.startY);
+
+                if (this.traveled >= this.distance) {
+                    createParticles(this.targetX, this.targetY, 48);
+                    return true;
+                }
+                return false;
+            }
+
+            draw() {
+                ctx.strokeStyle = this.color;
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                ctx.moveTo(this.previousX, this.previousY);
+                ctx.lineTo(this.x, this.y);
+                ctx.stroke();
+            }
+        }
+
+        class Ripple {
             constructor(x, y) {
                 this.x = x;
                 this.y = y;
                 this.radius = 5;
-                this.maxRadius = Math.random() * 60 + 50;
-                this.color = getRandomColor();
                 this.alpha = 1;
+                this.color = randomColor();
             }
 
-            update(index) {
-                this.radius += 3;
-                this.alpha -= 0.025;
-                if (this.alpha <= 0) {
-                    ripples.splice(index, 1);
-                }
+            update(delta) {
+                const step = Math.min(delta / 16.67, 2);
+                this.radius += 2.3 * step;
+                this.alpha -= .025 * step;
+                return this.alpha <= 0;
             }
 
             draw() {
-                ctx.save();
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.globalAlpha = this.alpha;
                 ctx.strokeStyle = this.color;
                 ctx.lineWidth = 1.5;
                 ctx.setLineDash([6, 6]);
-                ctx.globalAlpha = this.alpha;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
                 ctx.stroke();
-                ctx.restore();
+                ctx.setLineDash([]);
             }
         }
 
-        const ripples = [];
+        function createParticles(x, y, requestedCount = 60) {
+            const count = Math.min(requestedCount, MAX_PARTICLES - particles.length);
+            if (count <= 0) return;
+            const color = randomColor();
+            for (let i = 0; i < count; i++) particles.push(new Particle(x, y, color));
+        }
 
-        function createParticles(x, y) {
-            let particleCount = 60;
-            const color = getRandomColor();
-            while (particleCount--) {
-                particles.push(new Particle(x, y, color));
+        function launchFirework(targetX, targetY) {
+            if (fireworks.length >= MAX_FIREWORKS) return;
+            const startX = width * (.35 + Math.random() * .3);
+            const startY = height + 5;
+            const x = targetX ?? Math.random() * Math.max(width - 80, 1) + 40;
+            const y = targetY ?? Math.random() * height * .48 + 20;
+            fireworks.push(new Firework(startX, startY, x, y));
+            playLaunchSound();
+        }
+
+        function makeBurst(x, y) {
+            createParticles(x, y, 55);
+            ripples.push(new Ripple(x, y));
+            playChime();
+        }
+
+        /* 3. Animation loop, performance and visibility */
+        function render(now) {
+            if (animationPaused || document.hidden) {
+                animationFrame = 0;
+                return;
             }
-        }
 
-        function launchSingleFirework() {
-            const startX = width / 2 + (Math.random() * 200 - 100);
-            const startY = height;
-            const targetX = Math.random() * (width - 100) + 50;
-            const targetY = Math.random() * (height / 2);
-            fireworks.push(new Firework(startX, startY, targetX, targetY));
-        }
-
-        // Interactive Canvas Clicks
-        canvas.addEventListener('click', (e) => {
-            const rect = canvas.getBoundingClientRect();
-            const clickX = e.clientX - rect.left;
-            const clickY = e.clientY - rect.top;
-
-            // Spawn immediate particle burst & geometric ripple
-            createParticles(clickX, clickY);
-            ripples.push(new RangoliRipple(clickX, clickY));
-            audioFX.playExplosionSound(1.2);
-        });
-
-        // --- ANIMATION LOOP & FPS COUNTER ---
-        let autoLaunch = true;
-        let lastTime = performance.now();
-        let frameCount = 0;
-        let fps = 60;
-
-        const particleCountEl = document.getElementById('particleCount');
-        const fpsCounterEl = document.getElementById('fpsCounter');
-
-        function loop(currentTime) {
-            requestAnimationFrame(loop);
-
-            // FPS Calculation
+            const delta = previousFrameTime ? Math.min(now - previousFrameTime, 50) : 16.67;
+            previousFrameTime = now;
             frameCount++;
-            if (currentTime - lastTime >= 1000) {
-                fps = frameCount;
-                frameCount = 0;
-                lastTime = currentTime;
-                fpsCounterEl.textContent = fps;
-            }
+            fpsElapsed += delta;
+            autoLaunchElapsed += delta;
 
-            // Dark trailing canvas clear for glowing effect
-            ctx.globalCompositeOperation = 'destination-out';
-            ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
+            ctx.globalCompositeOperation = "destination-out";
+            ctx.globalAlpha = .2;
+            ctx.fillStyle = "#000";
             ctx.fillRect(0, 0, width, height);
-            ctx.globalCompositeOperation = 'lighter';
+            ctx.globalCompositeOperation = "lighter";
+            ctx.globalAlpha = 1;
 
-            // Draw & Update Fireworks
-            let i = fireworks.length;
-            while (i--) {
-                fireworks[i].draw();
-                fireworks[i].update(i);
+            for (let i = fireworks.length - 1; i >= 0; i--) {
+                const firework = fireworks[i];
+                firework.draw();
+                if (firework.update(delta)) fireworks.splice(i, 1);
             }
-
-            // Draw & Update Particles
-            let j = particles.length;
-            while (j--) {
-                particles[j].draw();
-                particles[j].update(j);
+            for (let i = particles.length - 1; i >= 0; i--) {
+                const particle = particles[i];
+                particle.draw();
+                particle.update(delta);
+                if (particle.alpha <= 0) particles.splice(i, 1);
             }
-
-            // Draw Rangoli Ripples
-            let k = ripples.length;
-            while (k--) {
-                ripples[k].draw();
-                ripples[k].update(k);
+            for (let i = ripples.length - 1; i >= 0; i--) {
+                const ripple = ripples[i];
+                ripple.draw();
+                if (ripple.update(delta)) ripples.splice(i, 1);
             }
+            ctx.globalAlpha = 1;
+            ctx.globalCompositeOperation = "source-over";
 
-            // Update stats
-            particleCountEl.textContent = particles.length + fireworks.length;
+            if (fpsElapsed >= 1000) {
+                fpsCounterEl.textContent = String(Math.round(frameCount * 1000 / fpsElapsed));
+                frameCount = 0;
+                fpsElapsed = 0;
+            }
+            particleCountEl.textContent = String(particles.length + fireworks.length);
 
-            // Auto Firework Launcher
-            if (autoLaunch && Math.random() < 0.035) {
-                launchSingleFirework();
+            if (autoLaunch && autoLaunchElapsed >= (reduceMotion ? 2200 : 1250)) {
+                launchFirework();
+                autoLaunchElapsed = 0;
+            }
+            animationFrame = window.requestAnimationFrame(render);
+        }
+
+        function startAnimation() {
+            if (!animationFrame && !animationPaused && !document.hidden) {
+                previousFrameTime = 0;
+                animationFrame = window.requestAnimationFrame(render);
             }
         }
 
-        // Start Animation Loop
-        requestAnimationFrame(loop);
-
-        // --- UI & INTERACTION HANDLERS ---
-
-        // Diya Energy Pulse Handler
-        const centralDiya = document.getElementById('centralDiya');
-        const circuitRangoli = document.getElementById('circuitRangoli');
-
-        centralDiya.addEventListener('click', (e) => {
-            e.stopPropagation();
-            audioFX.playDiyaChime();
-            
-            // Surge Rangoli scale and glow
-            circuitRangoli.style.transform = 'scale(1.2) rotate(45deg)';
-            circuitRangoli.style.opacity = '0.9';
-
-            // Launch multiple fireworks upwards in fan formation
-            for (let i = -2; i <= 2; i++) {
-                setTimeout(() => {
-                    fireworks.push(new Firework(width / 2, height - 100, width / 2 + (i * 120), height / 3 + Math.abs(i) * 20));
-                }, Math.abs(i) * 100);
-            }
-
-            setTimeout(() => {
-                circuitRangoli.style.transform = 'scale(1) rotate(0deg)';
-                circuitRangoli.style.opacity = '0.4';
-            }, 1000);
-        });
-
-        // Launch Button
-        document.getElementById('launchFireworkBtn').addEventListener('click', () => {
-            launchSingleFirework();
-            launchSingleFirework();
-        });
-
-        // Toggle Theme
-        const themeBtn = document.getElementById('themeToggleBtn');
-        const paletteKeys = Object.keys(PALETTES);
-        themeBtn.addEventListener('click', () => {
-            const currentIndex = paletteKeys.indexOf(currentPaletteKey);
-            currentPaletteKey = paletteKeys[(currentIndex + 1) % paletteKeys.length];
-            
-            // Spawn celebration burst in new palette
-            createParticles(width / 2, height / 2);
-            audioFX.playDiyaChime();
-        });
-
-        // Sound Toggle
-        const soundBtn = document.getElementById('soundToggleBtn');
-        const soundIcon = document.getElementById('soundIcon');
-        soundBtn.addEventListener('click', () => {
-            audioFX.enabled = !audioFX.enabled;
-            if (audioFX.enabled) {
-                soundIcon.className = 'fa-solid fa-volume-high text-amber-400';
-                soundBtn.querySelector('span').textContent = 'AUDIO: ON';
+        function toggleAnimation() {
+            animationPaused = !animationPaused;
+            const pauseBtn = document.querySelector("#pauseBtn");
+            pauseBtn.setAttribute("aria-pressed", String(animationPaused));
+            document.querySelector("#pauseIcon").textContent = animationPaused ? "▶" : "Ⅱ";
+            document.querySelector("#pauseLabel").textContent = animationPaused ? "RESUME" : "PAUSE";
+            canvas.style.pointerEvents = animationPaused ? "none" : "auto";
+            if (animationPaused && animationFrame) {
+                window.cancelAnimationFrame(animationFrame);
+                animationFrame = 0;
             } else {
-                soundIcon.className = 'fa-solid fa-volume-xmark text-gray-400';
-                soundBtn.querySelector('span').textContent = 'AUDIO: OFF';
+                startAnimation();
+            }
+        }
+
+        /* 4. Optional synthesized audio (starts only after user enables it) */
+        function ensureAudio() {
+            if (audioContext) return audioContext;
+            const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+            if (!AudioContextClass) {
+                document.querySelector("#soundLabel").textContent = "SOUND UNAVAILABLE";
+                return null;
+            }
+            audioContext = new AudioContextClass();
+            return audioContext;
+        }
+
+        function playTone(frequency, startAt, duration, volume, type = "sine") {
+            const context = ensureAudio();
+            if (!soundEnabled || !context) return;
+            if (context.state === "suspended") context.resume().catch(() => {
+                document.querySelector("#soundLabel").textContent = "SOUND BLOCKED";
+            });
+            const oscillator = context.createOscillator();
+            const gain = context.createGain();
+            oscillator.type = type;
+            oscillator.frequency.setValueAtTime(frequency, startAt);
+            gain.gain.setValueAtTime(volume, startAt);
+            gain.gain.exponentialRampToValueAtTime(.0001, startAt + duration);
+            oscillator.connect(gain);
+            gain.connect(context.destination);
+            oscillator.start(startAt);
+            oscillator.stop(startAt + duration);
+        }
+
+        function playLaunchSound() {
+            if (!soundEnabled) return;
+            const context = ensureAudio();
+            if (!context) return;
+            const now = context.currentTime;
+            const oscillator = context.createOscillator();
+            const gain = context.createGain();
+            oscillator.type = "sine";
+            oscillator.frequency.setValueAtTime(150, now);
+            oscillator.frequency.exponentialRampToValueAtTime(650, now + .22);
+            gain.gain.setValueAtTime(.045, now);
+            gain.gain.exponentialRampToValueAtTime(.0001, now + .22);
+            oscillator.connect(gain);
+            gain.connect(context.destination);
+            oscillator.start(now);
+            oscillator.stop(now + .22);
+        }
+
+        function playChime() {
+            if (!soundEnabled) return;
+            const context = ensureAudio();
+            if (!context) return;
+            [523.25, 659.25, 783.99].forEach((frequency, index) => {
+                playTone(frequency, context.currentTime + index * .045, .55, .035, "triangle");
+            });
+        }
+
+        /* 5. Greetings, clipboard and native share */
+        function makeGreeting() {
+            const sender = document.querySelector("#senderName").value.trim() || "A Well-Wisher";
+            const recipient = document.querySelector("#receiverName").value.trim() || "Friend";
+            const blessing = document.querySelector("#wishPreset").value;
+            return `🪔 Happy Diwali, ${recipient}! 🪔\n\n${blessing}\n\nWarmest wishes,\n${sender} ✨`;
+        }
+
+        function updateGreeting() {
+            wishPreview.value = makeGreeting();
+        }
+
+        async function copyText(text) {
+            if (navigator.clipboard && window.isSecureContext) {
+                await navigator.clipboard.writeText(text);
+                return;
+            }
+            const temporaryInput = document.createElement("textarea");
+            temporaryInput.value = text;
+            temporaryInput.setAttribute("readonly", "");
+            temporaryInput.style.position = "fixed";
+            temporaryInput.style.opacity = "0";
+            document.body.append(temporaryInput);
+            let copied = false;
+            try {
+                temporaryInput.select();
+                copied = document.execCommand("copy");
+            } finally {
+                temporaryInput.remove();
+            }
+            if (!copied) throw new Error("The browser could not copy the greeting.");
+        }
+
+        async function copyGreeting() {
+            try {
+                await copyText(wishPreview.value);
+                wishStatus.textContent = "Greeting copied. It is ready to paste and share.";
+            } catch (error) {
+                wishStatus.textContent = "Copy was unavailable. Select the preview text and copy it manually.";
+                console.error("Could not copy the greeting:", error);
+            }
+        }
+
+        async function shareGreeting() {
+            if (!navigator.share) {
+                await copyGreeting();
+                if (!wishStatus.textContent.startsWith("Copy was unavailable")) {
+                    wishStatus.textContent = "Sharing is unavailable here, so the greeting was copied instead.";
+                }
+                return;
+            }
+            try {
+                await navigator.share({ title: "Happy Diwali", text: wishPreview.value });
+                wishStatus.textContent = "Your greeting was shared.";
+            } catch (error) {
+                if (error.name === "AbortError") {
+                    wishStatus.textContent = "Sharing cancelled.";
+                    return;
+                }
+                wishStatus.textContent = "Could not open the share options. Please copy the greeting instead.";
+                console.error("Could not share the greeting:", error);
+            }
+        }
+
+        function openWishDialog() {
+            updateGreeting();
+            wishStatus.textContent = "";
+            wishDialog.showModal();
+        }
+
+        /* 6. Accessible event wiring */
+        function burstAtPointer(event) {
+            if (animationPaused) return;
+            const bounds = canvas.getBoundingClientRect();
+            makeBurst(event.clientX - bounds.left, event.clientY - bounds.top);
+        }
+
+        canvas.addEventListener("click", burstAtPointer);
+        canvas.addEventListener("keydown", (event) => {
+            if (event.key === "Enter" || event.key === " ") {
+                event.preventDefault();
+                makeBurst(width / 2, height / 2);
             }
         });
 
-        // Auto Launch Toggle
-        const autoBtn = document.getElementById('autoLaunchBtn');
-        const autoLabel = document.getElementById('autoLaunchLabel');
-        autoBtn.addEventListener('click', () => {
+        document.querySelector("#centralDiya").addEventListener("click", () => {
+            document.querySelector("#circuitRangoli").classList.add("is-surging");
+            for (let index = -2; index <= 2; index++) {
+                window.setTimeout(() => {
+                    if (!animationPaused) launchFirework(width / 2 + index * 75, height * .36 + Math.abs(index) * 18);
+                }, Math.abs(index) * 90);
+            }
+            window.setTimeout(() => document.querySelector("#circuitRangoli").classList.remove("is-surging"), 1000);
+            playChime();
+        });
+
+        document.querySelector("#launchFireworkBtn").addEventListener("click", () => {
+        launchFirework();
+        launchFirework();
+        });
+
+        document.querySelector("#themeToggleBtn").addEventListener("click", () => {
+            const paletteNames = Object.keys(PALETTES);
+            currentPalette = paletteNames[(paletteNames.indexOf(currentPalette) + 1) % paletteNames.length];
+            document.documentElement.dataset.palette = currentPalette;
+            createParticles(width / 2, height / 2);
+            playChime();
+        });
+
+        document.querySelector("#soundToggleBtn").addEventListener("click", (event) => {
+            const button = event.currentTarget;
+            if (soundEnabled) {
+                soundEnabled = false;
+                button.setAttribute("aria-pressed", "false");
+                document.querySelector("#soundIcon").textContent = "◖";
+                document.querySelector("#soundLabel").textContent = "SOUND: OFF";
+                return;
+            }
+
+            const context = ensureAudio();
+            if (!context) {
+                button.setAttribute("aria-pressed", "false");
+                document.querySelector("#soundIcon").textContent = "◖";
+                return;
+            }
+            soundEnabled = true;
+            button.setAttribute("aria-pressed", "true");
+            document.querySelector("#soundIcon").textContent = "♫";
+            document.querySelector("#soundLabel").textContent = "SOUND: ON";
+            if (context.state === "suspended") {
+                context.resume().catch(() => {
+                    soundEnabled = false;
+                    button.setAttribute("aria-pressed", "false");
+                    document.querySelector("#soundIcon").textContent = "◖";
+                    document.querySelector("#soundLabel").textContent = "SOUND BLOCKED";
+                });
+            }
+        });
+
+        document.querySelector("#autoLaunchBtn").addEventListener("click", (event) => {
             autoLaunch = !autoLaunch;
-            autoLabel.textContent = `AUTO SHOW: ${autoLaunch ? 'ON' : 'OFF'}`;
+            event.currentTarget.setAttribute("aria-pressed", String(autoLaunch));
+            document.querySelector("#autoLaunchLabel").textContent = `AUTO SHOW: ${autoLaunch ? "ON" : "OFF"}`;
         });
 
-        // --- WISH MODAL LOGIC ---
-        const wishModal = document.getElementById('wishModal');
-        const customWishBtn = document.getElementById('customWishBtn');
-        const closeModalBtn = document.getElementById('closeModalBtn');
-        const copyWishBtn = document.getElementById('copyWishBtn');
-
-        function openModal() {
-            wishModal.classList.remove('hidden');
-            setTimeout(() => wishModal.classList.remove('opacity-0'), 10);
-        }
-
-        function closeModal() {
-            wishModal.classList.add('opacity-0');
-            setTimeout(() => wishModal.classList.add('hidden'), 300);
-        }
-
-        customWishBtn.addEventListener('click', openModal);
-        closeModalBtn.addEventListener('click', closeModal);
-        wishModal.addEventListener('click', (e) => {
-            if (e.target === wishModal) closeModal();
+        document.querySelector("#pauseBtn").addEventListener("click", toggleAnimation);
+        document.querySelector("#customWishBtn").addEventListener("click", openWishDialog);
+        document.querySelector("#closeDialogBtn").addEventListener("click", () => wishDialog.close());
+        document.querySelector("#copyWishBtn").addEventListener("click", copyGreeting);
+        document.querySelector("#shareWishBtn").addEventListener("click", shareGreeting);
+        wishForm.addEventListener("input", updateGreeting);
+        wishForm.addEventListener("submit", (event) => event.preventDefault());
+        wishDialog.addEventListener("click", (event) => {
+            if (event.target === wishDialog) wishDialog.close();
+        });
+        document.addEventListener("keydown", (event) => {
+            if (event.key === "Escape" && wishDialog.open) wishDialog.close();
         });
 
-        // Copy Wish to Clipboard using execCommand fallback for iFrame compatibility
-        copyWishBtn.addEventListener('click', () => {
-            const sender = document.getElementById('senderName').value.trim() || 'A Well-Wisher';
-            const receiver = document.getElementById('receiverName').value.trim() || 'Friend';
-            const preset = document.getElementById('wishPreset').value;
-
-            const fullText = `🪔 *HAPPY DIWALI BLESSINGS* 🪔\n\nDear ${receiver},\n\n${preset}\n\nWarmest regards,\n✨ ${sender}`;
-
-            // Clipboard copy trick
-            const dummy = document.createElement("textarea");
-            document.body.appendChild(dummy);
-            dummy.value = fullText;
-            dummy.select();
-            document.execCommand("copy");
-            document.body.removeChild(dummy);
-
-            // Change button feedback state
-            const origHTML = copyWishBtn.innerHTML;
-            copyWishBtn.innerHTML = `<i class="fa-solid fa-check"></i> <span>GREETING COPIED!</span>`;
-            copyWishBtn.classList.replace('from-amber-500', 'from-green-500');
-            copyWishBtn.classList.replace('to-orange-500', 'to-emerald-500');
-
-            setTimeout(() => {
-                copyWishBtn.innerHTML = origHTML;
-                copyWishBtn.classList.replace('from-green-500', 'from-amber-500');
-                copyWishBtn.classList.replace('to-emerald-500', 'to-orange-500');
-                closeModal();
-            }, 1800);
+        window.addEventListener("resize", resizeCanvas, { passive: true });
+        document.addEventListener("visibilitychange", () => {
+            if (document.hidden && animationFrame) {
+                window.cancelAnimationFrame(animationFrame);
+                animationFrame = 0;
+            } else {
+                startAnimation();
+            }
         });
+
+        resizeCanvas();
+        if (reduceMotion) autoLaunch = false;
+        document.querySelector("#autoLaunchBtn").setAttribute("aria-pressed", String(autoLaunch));
+        document.querySelector("#autoLaunchLabel").textContent = `AUTO SHOW: ${autoLaunch ? "ON" : "OFF"}`;
+        startAnimation();
     </script>
 </body>
 </html>
