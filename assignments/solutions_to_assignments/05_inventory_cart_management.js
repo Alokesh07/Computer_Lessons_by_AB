@@ -1,3 +1,7 @@
+// CHANGE HIGHLIGHTS: Replaced direct cart edits and extra checkout helpers
+// with the six functions specified by the problem; added quantity/tag checks,
+// atomic stock validation, calculated totals, and the complete summary.
+
 const storeCatalog = [
     {
         id: 101,
@@ -22,112 +26,141 @@ const storeCatalog = [
     }
 ];
 
-let shoppingCart = [];
-
+const shoppingCart = [];
 const userBalance = 150;
 
-// Stage 3: Add products to cart
+function addToCart(cart, catalog, productId, quantity) {
+    if (!Array.isArray(cart) || !Array.isArray(catalog)) {
+        return { success: false, message: "Cart and catalog must be arrays." };
+    }
+    if (!Number.isInteger(quantity) || quantity <= 0) {
+        return { success: false, message: "Quantity must be a positive integer." };
+    }
 
-shoppingCart.push({
-    productId: storeCatalog[0].id,
-    quantity: 2
-});
+    const product = catalog.find(item => item.id === productId);
+    if (!product) {
+        return { success: false, message: `Product ${productId} was not found.` };
+    }
+    if (!Number.isInteger(product.stock) || product.stock < quantity) {
+        return { success: false, message: `Not enough stock for ${product.name}.` };
+    }
 
-shoppingCart.push({
-    productId: storeCatalog[1].id,
-    quantity: 1
-});
+    cart.push({ productId, quantity });
+    return { success: true, message: `${quantity} ${product.name}(s) added to cart.` };
+}
 
-// Stage 4: Calculate cart total
+// CHANGE: Check every line, including duplicate product IDs, before any stock changes.
+function updateInventoryStock(catalog, cart) {
+    if (!Array.isArray(catalog) || !Array.isArray(cart)) {
+        return { success: false, message: "Catalog and cart must be arrays." };
+    }
 
-function calculateCartTotal(cart) {
-    const total = cart.reduce((accumulator, item) => {
-        const product = storeCatalog.find(
-            product => product.id === item.productId
-        );
-
-        if (product) {
-            return accumulator + product.price * item.quantity;
+    const quantitiesByProduct = new Map();
+    for (const cartItem of cart) {
+        if (
+            !cartItem
+            || !Number.isInteger(cartItem.productId)
+            || !Number.isInteger(cartItem.quantity)
+            || cartItem.quantity <= 0
+        ) {
+            return { success: false, message: "The cart contains an invalid item." };
         }
 
-        return accumulator;
+        const product = catalog.find(item => item.id === cartItem.productId);
+        if (!product) {
+            return { success: false, message: `Product ${cartItem.productId} was not found.` };
+        }
+
+        if (!Number.isInteger(product.stock) || product.stock < 0) {
+            return { success: false, message: `Stock data for ${product.name} is invalid.` };
+        }
+
+        const requiredQuantity = (quantitiesByProduct.get(cartItem.productId) || 0) + cartItem.quantity;
+        if (product.stock < requiredQuantity) {
+            return { success: false, message: `Not enough stock for ${product.name}.` };
+        }
+        quantitiesByProduct.set(cartItem.productId, requiredQuantity);
+    }
+
+    for (const [productId, quantity] of quantitiesByProduct) {
+        const product = catalog.find(item => item.id === productId);
+        product.stock -= quantity;
+    }
+    return { success: true, message: "Inventory updated successfully." };
+}
+
+function addProductTag(catalog, productId, newTag) {
+    if (!Array.isArray(catalog) || typeof newTag !== "string" || !newTag.trim()) {
+        return { success: false, message: "Provide a catalog and a non-empty tag." };
+    }
+
+    const product = catalog.find(item => item.id === productId);
+    if (!product) {
+        return { success: false, message: `Product ${productId} was not found.` };
+    }
+    if (!Array.isArray(product.tags)) {
+        return { success: false, message: `${product.name} does not have a valid tag list.` };
+    }
+    if (!product.tags.includes(newTag)) {
+        product.tags.push(newTag);
+    }
+    return { success: true, product };
+}
+
+function calculateCartTotal(cart, catalog) {
+    if (!Array.isArray(cart) || !Array.isArray(catalog)) {
+        throw new TypeError("Cart and catalog must be arrays.");
+    }
+
+    return cart.reduce((total, cartItem) => {
+        const product = catalog.find(item => item.id === cartItem.productId);
+        if (!product) {
+            throw new RangeError(`Product ${cartItem.productId} was not found.`);
+        }
+        if (!Number.isFinite(product.price) || !Number.isInteger(cartItem.quantity) || cartItem.quantity <= 0) {
+            throw new TypeError("Cart items require a valid price and positive integer quantity.");
+        }
+        return total + product.price * cartItem.quantity;
     }, 0);
-
-    return total;
 }
 
-// Stage 5: Update stock
-
-function updateStock(cartItem) {
-    const product = storeCatalog.find(
-        item => item.id === cartItem.productId
-    );
-
-    if (product) {
-        product.stock -= cartItem.quantity;
+function checkBalanceSufficiency(balance, cartTotal) {
+    if (!Number.isFinite(balance) || balance < 0 || !Number.isFinite(cartTotal) || cartTotal < 0) {
+        throw new TypeError("Balance and cart total must be non-negative numbers.");
     }
+
+    return balance >= cartTotal;
 }
 
-// Stage 6: Check stock availability
-
-function checkStock(cart) {
-    return cart.reduce((available, item) => {
-        const product = storeCatalog.find(
-            product => product.id === item.productId
-        );
-
-        if (product && product.stock >= item.quantity) {
-            return available;
-        }
-
-        return false;
-    }, true);
+function displayCheckoutSummary(catalog, cart, balance, total, isBalanceSufficient) {
+    console.log("Shopping cart:", cart);
+    console.log("Updated inventory:", catalog);
+    console.log("First product tags:", catalog[0].tags);
+    console.log("Cart total:", total);
+    console.log("User balance:", balance);
+    console.log("Sufficient balance:", isBalanceSufficient);
+    console.log("Checkout message:", isBalanceSufficient ? "Checkout can proceed." : "Insufficient balance.");
 }
 
-// Stage 7: Process checkout
+// Required execution sequence
+const firstAddResult = addToCart(shoppingCart, storeCatalog, 101, 2);
+const secondAddResult = addToCart(shoppingCart, storeCatalog, 102, 1);
+console.log(firstAddResult.message);
+console.log(secondAddResult.message);
 
-function processCheckout(cart, balance) {
-    const total = calculateCartTotal(cart);
-    const stockAvailable = checkStock(cart);
+if (!firstAddResult.success || !secondAddResult.success) {
+    console.error("Checkout stopped because one or more cart additions failed.");
+} else {
+    const inventoryResult = updateInventoryStock(storeCatalog, shoppingCart);
+    console.log(inventoryResult.message);
 
-    if (stockAvailable && balance >= total) {
-
-        cart.reduce((processed, item) => {
-            updateStock(item);
-            return processed;
-        }, 0);
-
-        console.log("Checkout Successful!");
-        console.log("Total Paid:", total);
-        console.log("Remaining Balance:", balance - total);
-
-        return true;
-
+    if (!inventoryResult.success) {
+        console.error("Checkout inventory validation failed; stock was not changed.");
     } else {
-        console.log("Checkout Failed!");
+        console.log("Tag update:", addProductTag(storeCatalog, 101, "discounted"));
 
-        if (!stockAvailable) {
-            console.log("Insufficient Stock!");
-        }
-
-        if (balance < total) {
-            console.log("Insufficient Balance!");
-        }
-
-        return false;
+        const cartTotal = calculateCartTotal(shoppingCart, storeCatalog);
+        const isBalanceSufficient = checkBalanceSufficiency(userBalance, cartTotal);
+        displayCheckoutSummary(storeCatalog, shoppingCart, userBalance, cartTotal, isBalanceSufficient);
     }
 }
-
-// Stage 8: Final verification
-
-const cartTotal = calculateCartTotal(shoppingCart);
-
-const checkoutStatus = processCheckout(
-    shoppingCart,
-    userBalance
-);
-
-console.log("Cart Total:", cartTotal);
-console.log("Checkout Status:", checkoutStatus);
-console.log("Final Inventory:", storeCatalog);
-console.log("Shopping Cart:", shoppingCart);
