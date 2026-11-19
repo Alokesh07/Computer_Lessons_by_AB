@@ -1,0 +1,16 @@
+
+let A = [];
+
+function FunctionA(a, b) {
+    return a + b;
+}
+
+for (let i = 0; i < 10; i++) {
+    let B = i * 5;
+    let C = i * i;
+
+    let result = FunctionA(B, C);
+    A.push(result);
+}
+
+console.log(A);

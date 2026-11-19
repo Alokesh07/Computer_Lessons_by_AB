@@ -1,0 +1,17 @@
+
+let num1 = 20;
+let num2 = 10;
+let operator = "+";
+
+function calculator(a, b, A) {
+    if (A === "-") {
+        return a - b;
+    } else {
+        return a + b;
+    }
+}
+
+console.log(calculator(num1, num2, operator));
+
+operator = "-";
+console.log(calculator(num1, num2, operator));

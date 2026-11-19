@@ -1,0 +1,23 @@
+
+let A = 1000;
+
+(function () {
+    let A = 2000;
+    console.log(A);
+})();
+
+let B = (function () {
+    let A = 3000;
+    return A;
+})();
+
+console.log(B);
+console.log(A);
+
+let anonymous = function (FunctionA) {
+    let A = FunctionA;
+    console.log("The A is " + A);
+};
+
+anonymous(5000);
+    

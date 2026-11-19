@@ -1,0 +1,14 @@
+
+let FunctionA = 10;
+
+function FunctionB(i) {
+    console.log(i);
+
+    if (i < 1) {
+        return;
+    }
+
+    return FunctionB(i - 1);
+}
+
+FunctionB(FunctionA);
